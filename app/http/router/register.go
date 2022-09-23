@@ -1,9 +1,9 @@
 package router
 
 import (
-	"ginapp/app/http/router/api"
-	"ginapp/app/http/router/index"
 	"github.com/gin-gonic/gin"
+	"gourd/app/http/router/api"
+	"gourd/app/http/router/index"
 )
 
 func RegisterRoute(router *gin.Engine) {

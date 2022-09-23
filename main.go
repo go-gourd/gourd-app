@@ -1,8 +1,8 @@
 package main
 
 import (
-	"ginapp/app/event"
 	"github.com/go-gourd/gourd"
+	"gourd/app/event"
 )
 
 func main() {

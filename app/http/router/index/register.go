@@ -2,19 +2,12 @@ package index
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"gourd/app/http/controllers/index"
 )
 
 func RegisterIndexRoute(router *gin.Engine) {
 
-	v1 := router.Group("/v1")
-	{
+	router.GET("/", index.Controller{}.Index)
+	router.GET("/hello", index.Controller{}.Hello)
 
-		qq := v1.Group("/qq")
-		{
-			qq.GET("/login", func(c *gin.Context) {
-				c.String(http.StatusOK, "Hello login")
-			})
-		}
-	}
 }
