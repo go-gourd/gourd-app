@@ -22,6 +22,11 @@ Gourd is a Golang Web development framework.
 >前往Github下载  
 [https://github.com/go-gourd/gourd-app](https://github.com/go-gourd/gourd-app)
 
+直接运行
+```shell
+go run main.go
+```
+
 ## 参与开发
 
 直接提交PR或者Issue即可

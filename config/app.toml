@@ -1,2 +1,9 @@
 
-port = 8080
+# 应用名称
+name = "gourd"
+
+# 监听Web端口 默认8080
+port = 8888
+
+# 运行模式 debug,release
+releaseMode = "release"
