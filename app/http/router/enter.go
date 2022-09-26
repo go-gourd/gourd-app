@@ -2,7 +2,6 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"gourd/app/http/middleware"
 	"gourd/app/http/router/api"
 	"gourd/app/http/router/index"
 )
@@ -17,7 +16,7 @@ func RegisterRoute(router *gin.Engine) {
 	apiRouter := router.Group("/api")
 	{
 		//添加Api中间件
-		apiRouter.Use(middleware.ApiBaseMiddle())
+		//apiRouter.Use(middleware.ApiBaseMiddle())
 
 		api.RegisterRouterGroup(apiRouter)
 	}

@@ -1,0 +1,13 @@
+
+# 数据库驱动
+driver = "mysql"
+# 数据库地址
+host = "127.0.0.1"
+# 端口
+port = 3306
+# 用户
+user = "user"
+# 密码
+pass = "password"
+# 数据库
+db = "dbname"

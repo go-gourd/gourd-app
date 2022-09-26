@@ -8,5 +8,6 @@ import (
 func RegisterRouterGroup(router *gin.RouterGroup) {
 
 	router.GET("/test/getDate", test.Date{}.Get)
+	router.GET("/test/getUser", test.Data{}.GetUser)
 
 }
