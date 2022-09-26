@@ -8,6 +8,5 @@ import (
 func RegisterIndexRoute(router *gin.Engine) {
 
 	router.GET("/", index.Controller{}.Index)
-	router.GET("/hello", index.Controller{}.Hello)
 
 }

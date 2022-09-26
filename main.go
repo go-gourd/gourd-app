@@ -11,9 +11,6 @@ func main() {
 	event.RegisterEvent()
 
 	// 启动服务
-	err := gourd.StartServer()
-	if err != nil {
-		return
-	}
+	gourd.StartServer(true)
 
 }

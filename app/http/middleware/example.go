@@ -5,13 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ExampleMiddleware 示例中间件
 func ExampleMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		fmt.Println("ExampleMiddleware")
-
-		//日志输出请求Header的Accept
-		//log.Info(c.GetHeader("Accept"))
+		fmt.Print("User-Agent: ")
+		fmt.Println(c.GetHeader("User-Agent"))
 
 	}
 }

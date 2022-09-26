@@ -10,9 +10,5 @@ type Controller struct {
 }
 
 func (con Controller) Index(c *gin.Context) {
-	con.Success(c, "Index--")
-}
-
-func (con Controller) Hello(c *gin.Context) {
-	con.Error(c, "Hello--")
+	con.Success(c, "index.Index")
 }

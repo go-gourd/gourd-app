@@ -2,15 +2,11 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"gourd/app/http/controllers/api/test"
 )
 
 func RegisterRouterGroup(router *gin.RouterGroup) {
 
-	test := router.Group("/test")
-	{
-		test.GET("/hello", func(c *gin.Context) {
-			c.String(http.StatusOK, "Hello test")
-		})
-	}
+	router.GET("/test/getDate", test.Date{}.Get)
+
 }

@@ -11,10 +11,10 @@ func InitEvent() {
 
 	app := gourd.GetServer()
 
+	//注册Http全局中间件
+	middleware.RegisterGlobalMiddleware(app)
+
 	//注册Http路由
 	router.RegisterRoute(app)
-
-	//注册Http中间件
-	middleware.RegisterMiddleware(app)
 
 }
