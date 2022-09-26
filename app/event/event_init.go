@@ -2,6 +2,7 @@ package event
 
 import (
 	"github.com/go-gourd/gourd"
+	"gourd/app/http/middleware"
 	"gourd/app/http/router"
 )
 
@@ -10,7 +11,10 @@ func InitEvent() {
 
 	app := gourd.GetServer()
 
-	//注册路由
+	//注册Http路由
 	router.RegisterRoute(app)
+
+	//注册Http中间件
+	middleware.RegisterMiddleware(app)
 
 }

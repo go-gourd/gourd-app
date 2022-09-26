@@ -1,14 +1,17 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 func ExampleMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		log.Print(c.GetHeader("Accept"))
+		fmt.Println("ExampleMiddleware")
+
+		//日志输出请求Header的Accept
+		//log.Info(c.GetHeader("Accept"))
 
 	}
 }

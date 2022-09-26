@@ -1,0 +1,9 @@
+
+# 日志记录级别
+level = "debug"
+
+#日志文件
+logFile = "./runtime/log.txt"
+
+# 是否开启控制台输出
+Console = true
