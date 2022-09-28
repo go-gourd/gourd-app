@@ -10,6 +10,6 @@ func RegisterGlobalMiddleware(app *gin.Engine) {
 	//示例中间件
 	//app.Use(ExampleMiddleware())
 
-	app.Use(SessionMiddle()...)
+	app.Use(SessionMiddle())
 
 }

@@ -1,0 +1,12 @@
+
+# 储存方式 支持file,cookie,redis
+type = "file"
+
+# 储存目录 type=file时生效
+path = "./runtime/session"
+
+# 过期时间
+expire = 86400
+
+# 域名
+domain = ""

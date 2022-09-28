@@ -21,15 +21,17 @@ func (con Controller) Session(c *gin.Context) {
 	session := sessions.Default(c)
 
 	data := session.Get("data")
-	if data != "world" {
-		session.Set("data", "world")
+	if data != "编译完成，并显示退出代码" {
+		session.Set("data", "编译完成，并显示退出代码")
 		err := session.Save()
 		if err != nil {
 			log.Error(err.Error())
+			con.Success(c, "写入成功")
 		}
 	}
 
 	if data != nil {
+		con.Success(c, data.(string))
 		log.Info(data.(string))
 	}
 }
