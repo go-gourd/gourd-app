@@ -2,6 +2,7 @@ package event
 
 import (
 	"github.com/go-gourd/gourd"
+	"gourd/app/cron"
 	"gourd/app/http/middleware"
 	"gourd/app/http/router"
 )
@@ -16,5 +17,8 @@ func InitEvent() {
 
 	//注册Http路由
 	router.RegisterRoute(app)
+
+	//注册定时任务
+	cron.RegisterCron()
 
 }
