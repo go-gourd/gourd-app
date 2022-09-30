@@ -7,3 +7,6 @@ port = 8888
 
 # 运行模式 debug,release
 releaseMode = "release"
+
+# 静态资源路径，为空则不开启静态文件响应
+publicPath = "./public"
