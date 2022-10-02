@@ -2,26 +2,12 @@
 # 数据库驱动
 driver = "mysql"
 # 数据库地址
-host = "tx.kyour.cn"
+host = "127.0.0.1"
 # 端口
-port = 8306
+port = 3306
 # 用户
-user = "root"
+user = "user"
 # 密码
-pass = "70701414"
+pass = "password"
 # 数据库
-db = "pleme"
-
-
-# 数据库驱动
-#driver = "mysql"
-## 数据库地址
-#host = "127.0.0.1"
-## 端口
-#port = 3306
-## 用户
-#user = "user"
-## 密码
-#pass = "password"
-## 数据库
-#db = "dbname"
+db = "dbname"
