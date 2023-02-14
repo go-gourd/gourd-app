@@ -2,9 +2,15 @@ module app
 
 go 1.20
 
-require github.com/gin-gonic/gin v1.8.2
+require (
+	github.com/gin-gonic/gin v1.8.2
+	github.com/go-gourd/gourd v0.0.0-00010101000000-000000000000
+)
+
+replace github.com/go-gourd/gourd => ../gourd
 
 require (
+	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect

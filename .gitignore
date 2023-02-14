@@ -1,1 +1,5 @@
 .idea
+*/go.sum
+go.work
+go.work.sum
+/gourd
