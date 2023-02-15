@@ -1,31 +1,19 @@
 package main
 
 import (
-	"app/routers"
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/go-gourd/gourd/config"
-	"strconv"
+	"app/http/router"
+	"github.com/go-gourd/gourd"
 )
 
 func main() {
 
-	fmt.Println("starting...")
+	app := gourd.App{}
 
-	gin.SetMode(gin.ReleaseMode)
-
-	r := gin.New()
+	r := app.Create()
 
 	//初始化路由
-	routers.InitRouter(r)
+	router.InitRouter(r)
 
-	appConfig := config.GetAppConfig()
+	app.Run()
 
-	listen := appConfig.Host + ":" + strconv.Itoa(int(appConfig.Port))
-
-	// listen and serve
-	err := r.Run(listen)
-	if err != nil {
-		panic(err)
-	}
 }
