@@ -1,4 +1,3 @@
 
-name = "Gourd Project"
-host = ""
-port = 8989
+# 应用名称
+name = "gourd"

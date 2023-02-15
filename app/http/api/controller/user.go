@@ -12,7 +12,7 @@ func (*HandlerUser) GetUser(c *gin.Context) {
 	data := make(map[string]any)
 	data["info"] = "test data"
 
-	ghttp.Success(c, 0, "test", data)
+	ghttp.Success(c, "test", nil)
 }
 
 func Info(c *gin.Context) {
@@ -20,5 +20,5 @@ func Info(c *gin.Context) {
 	data := make(map[string]any)
 	data["list"] = "666"
 
-	ghttp.Success(c, 0, "test", data)
+	ghttp.Success(c, "test", data)
 }
