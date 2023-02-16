@@ -8,6 +8,7 @@ import (
 func main() {
 
 	app := gourd.App{}
+	app.Init()
 
 	r := app.Create()
 

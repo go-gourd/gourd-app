@@ -7,6 +7,7 @@ require (
 	github.com/go-gourd/gourd v0.0.0-00010101000000-000000000000
 )
 
+//本地开发框架包替换
 replace github.com/go-gourd/gourd => ../gourd
 
 require (
@@ -25,6 +26,9 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
+	go.uber.org/zap v1.24.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/net v0.6.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
