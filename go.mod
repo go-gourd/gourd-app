@@ -1,4 +1,4 @@
-module app
+module gourd
 
 go 1.20
 

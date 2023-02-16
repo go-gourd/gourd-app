@@ -1,8 +1,8 @@
 package main
 
 import (
-	"app/http/router"
 	"github.com/go-gourd/gourd"
+	"gourd/app/http/router"
 )
 
 func main() {

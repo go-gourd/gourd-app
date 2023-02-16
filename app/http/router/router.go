@@ -1,9 +1,9 @@
 package router
 
 import (
-	"app/http/router/api"
 	"github.com/gin-gonic/gin"
 	"github.com/go-gourd/gourd/ghttp"
+	"gourd/app/http/router/api"
 )
 
 // InitRouter 初始化路由
