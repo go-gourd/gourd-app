@@ -1,7 +1,4 @@
 .idea
-*/go.sum
-go.work
-go.work.sum
-/gourd
-*/runtime/*
+go.sum
+/runtime
 *.exe
