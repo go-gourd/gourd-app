@@ -20,6 +20,11 @@ Gourd is a Golang rapid development framework.
 >前往Github下载  
 [https://github.com/go-gourd/gourd-app](https://github.com/go-gourd/gourd-app)
 
+## 模型代码生成
+```shell
+go run ./support/gorm_gen/gen.go
+```
+
 ## 参与开发
 
 直接提交PR或者Issue即可

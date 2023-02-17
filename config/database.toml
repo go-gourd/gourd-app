@@ -1,0 +1,15 @@
+
+#数据库地址
+host = "localhost"
+
+#端口
+port = 3306
+
+#用户
+user = "user"
+
+#密码
+pass = "pass"
+
+#数据库
+database = "database"
