@@ -37,4 +37,4 @@ Gourd遵循Apache2开源协议发布，并提供免费使用。
 
 版权所有Copyright © 2020 by Kyour (http://www.kyour.cn) All rights reserved。
 
-更多细节参阅 [LICENSE.txt](LICENSE.txt)
+更多细节参阅 [LICENSE](LICENSE)

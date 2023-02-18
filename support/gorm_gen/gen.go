@@ -1,39 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"github.com/go-gourd/gourd/config"
-	"github.com/go-gourd/gourd/log"
-	"gorm.io/driver/mysql"
+	"github.com/go-gourd/gourd/gdb"
 	"gorm.io/gen"
-	"gorm.io/gorm"
 	"strings"
 )
 
+// main 模型代码生成
 func main() {
 
-	conf := config.GetDbConfig()
-
-	dsnParam := ""
-	if conf.Param != "" {
-		dsnParam = "?" + conf.Param
-	}
-	dsnF := "%s:%s@(%s:%d)/%s%s"
-	dsn := fmt.Sprintf(dsnF, conf.User, conf.Pass, conf.Host, conf.Port, conf.Database, dsnParam)
-
-	// 连接数据库
-	db, err := gorm.Open(mysql.Open(dsn))
-	if err != nil {
-		log.Error("cannot establish db connection: %w" + err.Error())
-		panic(fmt.Errorf("cannot establish db connection: %w", err))
-	}
+	db := gdb.GetMysqlDb()
 
 	// 构造生成器实例
 	g := gen.NewGenerator(gen.Config{
 		// 相对执行`go run`时的路径, 会自动创建目录
 
-		OutPath:      "./app/dao", //curd代码的输出路径
-		ModelPkgPath: "./model",   //model代码的输出路径
+		OutPath:      "./app/dal/query", //curd代码的输出路径
+		ModelPkgPath: "model",           //model代码的输出路径
 
 		// WithDefaultQuery 生成默认查询结构体(作为全局变量使用), 即`Q`结构体和其字段(各表模型)
 		// WithoutContext 生成没有context调用限制的代码供查询
@@ -82,12 +65,12 @@ func main() {
 	// 将非默认字段名的字段定义为自动时间戳和软删除字段;
 	// 自动时间戳默认字段名为:`updated_at`、`created_at, 表字段数据类型为: INT 或 DATETIME
 	// 软删除默认字段名为:`deleted_at`, 表字段数据类型为: DATETIME
-	//autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;autoUpdateTime")
-	//autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;autoCreateTime")
+	autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;autoUpdateTime")
+	autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;autoCreateTime")
 	softDeleteField := gen.FieldType("delete_time", "gorm.DeletedAt")
 	// 模型自定义选项组
-	//fieldOpts := []gen.ModelOpt{jsonField, autoCreateTimeField, autoUpdateTimeField, softDeleteField}
-	fieldOpts := []gen.ModelOpt{jsonField, softDeleteField}
+	fieldOpts := []gen.ModelOpt{jsonField, autoCreateTimeField, autoUpdateTimeField, softDeleteField}
+	//fieldOpts := []gen.ModelOpt{jsonField, softDeleteField}
 
 	// 创建模型的结构体,生成文件在 model 目录; 先创建的结果会被后面创建的覆盖
 	// 这里创建个别模型仅仅是为了拿到`*generate.QueryStructMeta`类型对象用于后面的模型关联操作中
