@@ -16,6 +16,10 @@ func RegisterEvent() {
 	// Init事件(框架) -初始化完成执行
 	event.AddEvent("_init", func(params any) {
 		log.Debug("boot init.")
+
+		//连接数据库
+		//query.SetDefault(gdb.GetMysqlDb())
+
 	})
 
 	// Start事件(框架) -启动后执行
