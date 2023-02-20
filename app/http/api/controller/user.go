@@ -1,27 +1,23 @@
 package controller
 
 import (
-	"fmt"
+	"github.com/awesee/php2go/php"
 	"github.com/gin-gonic/gin"
 	"github.com/go-gourd/gourd/ghttp"
 	"gourd/app/dal/query"
 )
 
-type HandlerUser struct {
+// UserController 用户控制器
+type UserController struct {
 }
 
-func (*HandlerUser) GetUser(c *gin.Context) {
+// UserInfo 获取用户信息
+func (*UserController) UserInfo(c *gin.Context) {
 
-	first, _ := query.User.Where(query.User.ID.Neq(99)).Find()
-	fmt.Println(first)
+	user, _ := query.User.Where(query.User.ID.Eq(99)).First()
+	if user != nil {
+		user.Password = php.Md5(user.Password)
+	}
 
-	ghttp.Success(c, "test", first)
-}
-
-func Info(c *gin.Context) {
-
-	data := make(map[string]any)
-	data["list"] = "666"
-
-	ghttp.Success(c, "test", data)
+	ghttp.Success(c, "", user)
 }

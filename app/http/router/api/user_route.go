@@ -7,6 +7,6 @@ import (
 
 // RegisterRoute 注册路由组接口
 func RegisterRoute(r *gin.RouterGroup) {
-	h := controller.HandlerUser{}
-	r.GET("/user", h.GetUser)
+	h := controller.UserController{}
+	r.GET("/userInfo", h.UserInfo)
 }
