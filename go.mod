@@ -3,9 +3,9 @@ module gourd
 go 1.20
 
 require (
-	github.com/awesee/php2go latest
+	github.com/awesee/php2go v0.0.0-20220427074423-f770bfe22482
 	github.com/gin-gonic/gin v1.8.2
-	github.com/go-gourd/gourd latest
+	github.com/go-gourd/gourd v0.0.0-20230218090935-d34df62db482
 	gorm.io/gen v0.3.21
 	gorm.io/gorm v1.24.5
 	gorm.io/plugin/dbresolver v1.3.0

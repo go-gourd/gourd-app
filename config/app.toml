@@ -1,3 +1,9 @@
 
 # 应用名称
 name = "gourd"
+
+# 调试模式
+debug = false
+
+# 临时文件目录
+tempDir = "./runtime"
