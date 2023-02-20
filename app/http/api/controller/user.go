@@ -1,18 +1,21 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-gourd/gourd/ghttp"
+	"gourd/app/dal/query"
 )
 
 type HandlerUser struct {
 }
 
 func (*HandlerUser) GetUser(c *gin.Context) {
-	data := make(map[string]any)
-	data["info"] = "test data"
 
-	ghttp.Success(c, "test", nil)
+	first, _ := query.User.Where(query.User.ID.Neq(99)).Find()
+	fmt.Println(first)
+
+	ghttp.Success(c, "test", first)
 }
 
 func Info(c *gin.Context) {

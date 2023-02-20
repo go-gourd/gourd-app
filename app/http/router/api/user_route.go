@@ -8,5 +8,5 @@ import (
 // RegisterRoute 注册路由组接口
 func RegisterRoute(r *gin.RouterGroup) {
 	h := controller.HandlerUser{}
-	r.GET("/users", h.GetUser)
+	r.GET("/user", h.GetUser)
 }

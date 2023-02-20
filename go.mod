@@ -46,4 +46,5 @@ require (
 	gorm.io/gorm v1.24.5 // indirect
 	gorm.io/hints v1.1.0 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect
+	gorm.io/plugin/soft_delete v1.2.0 // indirect
 )
