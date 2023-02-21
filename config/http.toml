@@ -1,6 +1,6 @@
 
 # 是否启用http服务器
-enable = false
+enable = true
 
 # 监听ip/域名 默认全部
 host = ""

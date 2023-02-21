@@ -7,7 +7,9 @@ import (
 )
 
 // InitRouter 初始化路由
-func InitRouter(r *gin.Engine) {
+func InitRouter() {
+
+	r := ghttp.GetEngine()
 
 	//主页
 	r.Any("/", func(c *gin.Context) {
