@@ -3,8 +3,10 @@ package event
 import (
 	"github.com/go-gourd/gourd/event"
 	"github.com/go-gourd/gourd/gdb"
+	"github.com/go-gourd/gourd/ghttp"
 	"github.com/go-gourd/gourd/log"
 	"gourd/app/dal/query"
+	"gourd/app/http/router"
 )
 
 // RegisterEvent 事件注册
@@ -21,6 +23,9 @@ func RegisterEvent() {
 
 		//连接数据库
 		query.SetDefault(gdb.GetMysqlDb())
+
+		//注册路由
+		ghttp.SetRouter(router.InitRouter)
 
 	})
 

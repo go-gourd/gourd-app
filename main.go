@@ -3,23 +3,20 @@ package main
 import (
 	"github.com/go-gourd/gourd"
 	"gourd/app/event"
-	"gourd/app/http/router"
 )
 
 func main() {
 
+	// 实例化app
 	app := gourd.App{}
 
-	//注册事件
+	// 注册事件
 	event.RegisterEvent()
 
+	// 执行初始化
 	app.Init()
 
-	r := app.Create()
-
-	//初始化路由
-	router.InitRouter(r)
-
+	// 启动应用
 	app.Run()
 
 }
