@@ -13,3 +13,6 @@ pass = "pass"
 
 #数据库
 database = "database"
+
+# 慢日志阈值（毫秒）0为不开启
+slowLogTime = 500
