@@ -1,4 +1,7 @@
 .idea
 go.sum
 /runtime
+# 忽略win编译文件
 *.exe
+# 忽略linux编译文件
+/*_linux

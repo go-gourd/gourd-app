@@ -1,5 +1,5 @@
 # 日志记录级别
-#level = "debug"
+level = "debug"
 
 # 日志文件
 logFile = "./runtime/log/log.txt"
