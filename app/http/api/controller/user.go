@@ -14,7 +14,7 @@ type UserController struct {
 // UserInfo 获取用户信息
 func (*UserController) UserInfo(c *gin.Context) {
 
-	user, _ := query.User.Where(query.User.ID.Eq(99)).First()
+	user, _ := query.User.Where(query.User.ID.Eq(1)).First()
 	if user != nil {
 		user.Password = php.Md5(user.Password)
 	}

@@ -6,8 +6,8 @@ import (
 	"gourd/app/http/router/api"
 )
 
-// InitRouter 初始化路由
-func InitRouter() {
+// RegisterRouter 初始化路由
+func RegisterRouter() {
 
 	r := ghttp.GetEngine()
 
