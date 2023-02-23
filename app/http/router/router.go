@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-gourd/gourd/ghttp"
-	"gourd/app/http/router/api"
+	apiRoute "gourd/app/http/api/route"
 )
 
 // RegisterRouter 初始化路由
@@ -22,9 +22,9 @@ func RegisterRouter() {
 	})
 
 	//注册api相关路由
-	apiG := r.Group("/api")
+	apiGroup := r.Group("/api")
 	{
-		api.RegisterRoute(apiG)
+		apiRoute.RegisterRoute(apiGroup)
 	}
 
 }

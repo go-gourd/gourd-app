@@ -1,23 +1,33 @@
 package controller
 
 import (
-	"github.com/awesee/php2go/php"
 	"github.com/gin-gonic/gin"
-	"github.com/go-gourd/gourd/ghttp"
+	"gorm.io/gen/field"
 	"gourd/app/dal/query"
+	"gourd/app/http"
 )
 
 // UserController 用户控制器
 type UserController struct {
+	http.BaseController //继承基础控制器
 }
 
 // UserInfo 获取用户信息
-func (*UserController) UserInfo(c *gin.Context) {
+func (ct *UserController) UserInfo(c *gin.Context) {
 
-	user, _ := query.User.Where(query.User.ID.Eq(1)).First()
-	if user != nil {
-		user.Password = php.Md5(user.Password)
+	//需要查询的字段
+	fields := []field.Expr{
+		query.User.ID,
+		query.User.UserName,
 	}
 
-	ghttp.Success(c, "", user)
+	user, _ := query.User.
+		Where(query.User.ID.Eq(2)).
+		Select(fields...).
+		First()
+	if user != nil {
+	}
+
+	//响应结果
+	ct.Success(c, "", user)
 }
