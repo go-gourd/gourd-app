@@ -18,7 +18,14 @@ func RegisterRouter() {
 
 	//404
 	r.NoRoute(func(c *gin.Context) {
-		ghttp.Write(c, "404 not found")
+
+		//判断是否是静态文件并返回
+		err := ghttp.WriteStaticFile(c, "")
+		if err == nil {
+			return
+		}
+
+		ghttp.Write(c, "404 not found."+c.Request.URL.Path)
 	})
 
 	//注册api相关路由

@@ -2,7 +2,6 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-gourd/gourd/ghttp"
 )
 
 // BaseController 基础控制器
@@ -19,7 +18,7 @@ func (*BaseController) Success(c *gin.Context, message string, data any) {
 		"data":    data,
 		"message": message,
 	}
-	ghttp.Json(c, &res)
+	c.AsciiJSON(200, &res)
 }
 
 // Fail 失败响应
@@ -32,5 +31,5 @@ func (*BaseController) Fail(c *gin.Context, code int, message string, data any) 
 		"data":    data,
 		"message": message,
 	}
-	ghttp.Json(c, &res)
+	c.AsciiJSON(200, &res)
 }

@@ -24,11 +24,11 @@ func RegisterEvent() {
 	event.AddEvent("_init", func(params any) {
 		logger.Debug("init event.")
 
-		// 连接数据库
-		query.SetDefault(gdb.GetMysqlDb())
-
 		// 注册路由
 		router.RegisterRouter()
+
+		// 连接数据库
+		query.SetDefault(gdb.GetMysqlDb())
 
 	})
 
