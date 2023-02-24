@@ -5,6 +5,7 @@ import (
 	"github.com/go-gourd/gourd/gdb"
 	"github.com/go-gourd/gourd/logger"
 	"gourd/app/cmd"
+	"gourd/app/cron"
 	"gourd/app/dal/query"
 	"gourd/app/http/router"
 )
@@ -18,6 +19,9 @@ func RegisterEvent() {
 
 		// 注册命令行
 		cmd.RegisterCmd()
+
+		// 注册定时任务
+		cron.RegisterCron()
 	})
 
 	// Init事件(框架) -初始化完成执行
