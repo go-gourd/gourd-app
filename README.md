@@ -13,17 +13,35 @@ Gourd is a Golang rapid development framework.
 * 开箱即用
 * 事件机制
 
-## 开始使用
-> git下载
-> 在命令行中运行  
-`git clone https://github.com/go-gourd/gourd-app.git`
->前往Github下载  
-[https://github.com/go-gourd/gourd-app](https://github.com/go-gourd/gourd-app)
+## 快速开始
+使用git下载
 
-## 模型代码生成
-```shell
-go run ./support/gorm_gen/gen.go
+```bash
+git clone https://github.com/go-gourd/gourd-app.git
 ```
+
+下载依赖
+```bash
+go mod tidy
+```
+
+开始运行
+```bash
+go run main.go
+```
+
+等待控制台输出
+```text
+   _____                     _ 
+  / ____|                   | |  Go       go1.20
+ | |  __  ___  _   _ _ __ __| |  Gourd    v0.2.0 (2)
+ | | |_ |/ _ \| | | | '__/ _` |  Gin      v1.8.2
+ | |__| | (_) | |_| | | | (_| |  Public   ./public
+  \_____|\___/ \__,_|_|  \__,_|  Temp Dir ./runtime
+--------------------------------------------------------
+{"level":"info","time":"2023-02 *","msg":"Started http server. :8888"}
+```
+运行成功，使用浏览器访问`http://localhsot/`
 
 ## 参与开发
 
