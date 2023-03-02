@@ -13,7 +13,7 @@ import (
 // RegisterEvent 事件注册
 func RegisterEvent() {
 
-	// Boot事件(框架) -启动时执行
+	// Boot事件(系统) -启动时执行
 	event.AddEvent("_boot", func(params any) {
 		logger.Debug("boot event.")
 
@@ -24,7 +24,7 @@ func RegisterEvent() {
 		cron.RegisterCron()
 	})
 
-	// Init事件(框架) -初始化完成执行
+	// Init事件(系统) -初始化完成执行
 	event.AddEvent("_init", func(params any) {
 		logger.Debug("init event.")
 
@@ -36,12 +36,12 @@ func RegisterEvent() {
 
 	})
 
-	// Start事件(框架) -启动后执行
+	// Start事件(系统) -启动后执行
 	event.AddEvent("_start", func(params any) {
 		logger.Debug("start event.")
 	})
 
-	// Stop事件(框架) -终止时执行
+	// Stop事件(系统) -终止时执行
 	event.AddEvent("_stop", func(params any) {
 		logger.Debug("stop event.")
 	})

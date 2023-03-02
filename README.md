@@ -2,7 +2,7 @@
 Gourd 0.3 Beta 2023
 ===============
 
-Gourd is a Golang rapid development framework.
+Go-Gourd 是一个由事件驱动的快速开发框架，高度集成且灵活易用。
 
 ## 框架由来
 我正在学习Golang，是一名PHP开发者，学习过程中发现Go在很多地方对于php开发习惯很不友好。  
@@ -37,7 +37,7 @@ go run main.go
 ```text
    _____                     _ 
   / ____|                   | |  Go       go1.20
- | |  __  ___  _   _ _ __ __| |  Gourd    v0.2.0 (2)
+ | |  __  ___  _   _ _ __ __| |  Gourd    v0.2.1 (3)
  | | |_ |/ _ \| | | | '__/ _` |  Gin      v1.8.2
  | |__| | (_) | |_| | | | (_| |  Public   ./public
   \_____|\___/ \__,_|_|  \__,_|  Temp Dir ./runtime
