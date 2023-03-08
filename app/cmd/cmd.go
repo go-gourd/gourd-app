@@ -8,7 +8,7 @@ import (
 func RegisterCmd() {
 
 	//命令行示例
-	cmd.AddCmd(cmd.Commend{
+	cmd.Add(cmd.Commend{
 		Name:    "test",
 		Explain: "This is a test template.",
 		Handler: func(args []string) {
