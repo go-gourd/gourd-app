@@ -1,5 +1,5 @@
 
-Gourd 0.3 Beta 2023
+Gourd 0.2 Beta 2023
 ===============
 
 Go-Gourd 是一个由事件驱动的快速开发框架，高度集成且灵活易用。
@@ -14,7 +14,8 @@ Go-Gourd 是一个由事件驱动的快速开发框架，高度集成且灵活�
 * 事件机制
 * 定时任务
 * 命令行
-* 守护进程（开发中）
+* 守护进程（仅linux）
+* 日志工具
 
 ## 快速开始
 使用git下载
@@ -56,6 +57,8 @@ Gourd遵循Apache2开源协议发布，并提供免费使用。
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2020 by Kyour (http://www.kyour.cn) All rights reserved。
+QQ: 2653907035
+
+Email: kyour@outlook.com 
 
 更多细节参阅 [LICENSE](LICENSE)
