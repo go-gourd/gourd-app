@@ -4,15 +4,12 @@ go 1.20
 
 require (
 	github.com/gin-gonic/gin v1.8.2
-	github.com/go-gourd/gourd v0.0.0-20230218090935-d34df62db482
+	github.com/go-gourd/gourd v0.2.1
 	gorm.io/gen v0.3.21
 	gorm.io/gorm v1.24.5
 	gorm.io/plugin/dbresolver v1.3.0
 	gorm.io/plugin/soft_delete v1.2.0
 )
-
-//本地开发框架包替换
-replace github.com/go-gourd/gourd => ../gourd
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
