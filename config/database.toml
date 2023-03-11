@@ -1,18 +1,16 @@
 
+[mysql]
+#数据库类型
+type = "mysql"
 #数据库地址
 host = "localhost"
-
 #端口
 port = 3306
-
 #用户
 user = "user"
-
 #密码
 pass = "pass"
-
-#数据库
+#数据库名
 database = "database"
-
 # 慢日志阈值（毫秒）0为不开启
 slowLogTime = 500

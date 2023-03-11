@@ -2,8 +2,8 @@ package event
 
 import (
 	"github.com/go-gourd/gourd/event"
-	"github.com/go-gourd/gourd/gdb"
 	"github.com/go-gourd/gourd/logger"
+	"github.com/go-gourd/mysql"
 	"gourd/app/cmd"
 	"gourd/app/cron"
 	"gourd/app/dal/query"
@@ -32,7 +32,11 @@ func RegisterEvent() {
 		router.RegisterRouter()
 
 		// 连接数据库
-		query.SetDefault(gdb.GetMysqlDb())
+		dbMysql, err := mysql.GetDb("mysql")
+		if err != nil {
+			panic(err.Error())
+		}
+		query.SetDefault(dbMysql)
 
 	})
 

@@ -1,14 +1,17 @@
 package main
 
 import (
-	"github.com/go-gourd/gourd/gdb"
+	"github.com/go-gourd/mysql"
 	"gorm.io/gen"
 )
 
 // main 模型代码生成
 func main() {
 
-	db := gdb.GetMysqlDb()
+	dbMysql, err := mysql.GetDb("mysql")
+	if err != nil {
+		panic(err.Error())
+	}
 
 	// 构造生成器实例
 	g := gen.NewGenerator(gen.Config{
@@ -22,7 +25,7 @@ func main() {
 		Mode: gen.WithDefaultQuery | gen.WithoutContext,
 	})
 	// 设置目标 db
-	g.UseDB(db)
+	g.UseDB(dbMysql)
 
 	// 自定义字段的数据类型
 	// 统一数字类型为int64,兼容protobuf和thrift
