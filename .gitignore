@@ -5,3 +5,5 @@ go.sum
 *.exe
 # 忽略linux编译文件
 /*_linux
+#忽略打包发布目录
+/dist
