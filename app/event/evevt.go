@@ -10,11 +10,11 @@ import (
 	"gourd/app/http/router"
 )
 
-// RegisterEvent 事件注册
-func RegisterEvent() {
+// Register 事件注册
+func Register() {
 
 	// Boot事件(系统) -启动时执行
-	event.AddEvent("_boot", func(params any) {
+	event.Listen("_boot", func(params any) {
 		logger.Debug("boot event.")
 
 		// 注册命令行
@@ -25,7 +25,7 @@ func RegisterEvent() {
 	})
 
 	// Init事件(系统) -初始化完成执行
-	event.AddEvent("_init", func(params any) {
+	event.Listen("_init", func(params any) {
 		logger.Debug("init event.")
 
 		// 注册路由
@@ -41,12 +41,12 @@ func RegisterEvent() {
 	})
 
 	// Start事件(系统) -启动后执行
-	event.AddEvent("_start", func(params any) {
+	event.Listen("_start", func(params any) {
 		logger.Debug("start event.")
 	})
 
 	// Stop事件(系统) -终止时执行
-	event.AddEvent("_stop", func(params any) {
+	event.Listen("_stop", func(params any) {
 		logger.Debug("stop event.")
 	})
 

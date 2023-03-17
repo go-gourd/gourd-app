@@ -11,7 +11,7 @@ func main() {
 	app := gourd.App{}
 
 	// 注册事件
-	event.RegisterEvent()
+	event.Register()
 
 	// 执行初始化
 	app.Init()

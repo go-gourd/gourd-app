@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gen/field"
+	"gourd/app/dal/model"
 	"gourd/app/dal/query"
 	"gourd/app/http"
 )
@@ -26,6 +28,22 @@ func (ct *UserController) UserInfo(c *gin.Context) {
 		Select(fields...).
 		First()
 	if user != nil {
+	}
+
+	//响应结果
+	ct.Success(c, "", user)
+}
+
+// UserAdd 创建用户
+func (ct *UserController) UserAdd(c *gin.Context) {
+
+	user := model.User{
+		UserName: "go_create",
+	}
+
+	err := query.User.Create(&user)
+	if err != nil {
+		fmt.Println("添加失败")
 	}
 
 	//响应结果

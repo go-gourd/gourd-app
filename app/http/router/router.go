@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-gourd/gourd/ghttp"
+	"github.com/go-gourd/ghttp"
 	apiRoute "gourd/app/http/api/route"
 )
 
