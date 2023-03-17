@@ -39,11 +39,12 @@ func (ct *UserController) UserAdd(c *gin.Context) {
 
 	user := model.User{
 		UserName: "go_create",
+		Extend:   "{}",
 	}
 
 	err := query.User.Create(&user)
 	if err != nil {
-		fmt.Println("添加失败")
+		fmt.Println("添加失败：" + err.Error())
 	}
 
 	//响应结果

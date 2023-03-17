@@ -9,4 +9,5 @@ import (
 func RegisterRoute(r *gin.RouterGroup) {
 	h := controller.UserController{}
 	r.GET("/userInfo", h.UserInfo)
+	r.GET("/userAdd", h.UserAdd)
 }
