@@ -13,6 +13,9 @@ require (
 	gorm.io/plugin/soft_delete v1.2.0
 )
 
+//本地开发框架包替换
+replace github.com/go-gourd/gourd => ../gourd
+
 require (
 	github.com/bytedance/sonic v1.8.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect

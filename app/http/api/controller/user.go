@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gen/field"
-	"gourd/app/dal/model"
-	"gourd/app/dal/query"
 	"gourd/app/http"
+	"gourd/app/orm/model"
+	"gourd/app/orm/query"
 )
 
 // UserController 用户控制器

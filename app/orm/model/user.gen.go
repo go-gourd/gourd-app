@@ -4,7 +4,11 @@
 
 package model
 
-import "gorm.io/plugin/soft_delete"
+import (
+	"encoding/json"
+
+	"gorm.io/plugin/soft_delete"
+)
 
 const TableNameUser = "user"
 
@@ -18,6 +22,16 @@ type User struct {
 	UpdateTime int32                 `gorm:"column:update_time;type:int unsigned;default:0;autoUpdateTime" json:"update_time"`
 	DeleteTime soft_delete.DeletedAt `gorm:"column:delete_time;type:int unsigned;default:0;autoCreateTime" json:"delete_time"`
 	Extend     string                `gorm:"column:extend" json:"extend"`
+}
+
+// MarshalBinary 支持json序列化
+func (m *User) MarshalBinary() (data []byte, err error) {
+	return json.Marshal(m)
+}
+
+// UnmarshalBinary 支持json反序列化
+func (m *User) UnmarshalBinary(data []byte) error {
+	return json.Unmarshal(data, m)
 }
 
 // TableName User's table name
