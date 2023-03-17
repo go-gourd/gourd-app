@@ -6,8 +6,8 @@ import (
 	"github.com/go-gourd/mysql"
 	"gourd/app/cmd"
 	"gourd/app/cron"
-	"gourd/app/dal/query"
 	"gourd/app/http/router"
+	"gourd/app/orm/query"
 )
 
 // Register 事件注册

@@ -45,7 +45,7 @@ go run main.go
 --------------------------------------------------------
 {"level":"info","time":"2023-02 *","msg":"Started http server. :8888"}
 ```
-运行成功，使用浏览器访问`http://localhsot/`
+运行成功，使用浏览器访问`http://localhsot:8888/`
 
 ## 参与开发
 
