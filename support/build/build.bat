@@ -1,24 +1,41 @@
 @echo off
 
 @REM 该文件来自AI编写 @newBing
-@REM 请帮我编写一个bat文件，用于编译go语言代码，接收一个参数可输入目标平台，默认是windows，第二个参数如果输入了则是生成的可
-@REM 执行文件名称，没输入则为app，第三个及以后的参数作为go编译参数，非必填，并且在最后面加上参数：-ldflags="-s -w"，最后删
-@REM 除dist目录并重新创建该目录并将app.exe文件和config/目录和public/复制到该目录
+@REM 请帮我编写一个bat文件，用于编译go语言代码，接收一个参数可输入目标平台，默认是windows，第二个参数如果输入了则是生成的可执行文件名称，
+@REM 文件名称没输入则为app，如果目标平台是windows则添加文件后缀.exe，第三个及以后的参数作为go编译参数，非必填，并且在最后面加上参数：
+@REM -ldflags="-s -w"，最后删除dist目录并重新创建该目录并将app.exe文件和config/目录和public/复制到该目录
 
-rem 设置默认目标平台为windows
-set GOOS=windows
-rem 设置默认可执行文件名称为app.exe
-set NAME=app.exe
-rem 获取第一个参数作为目标平台，如果提供的话
-if "%1" neq "" set GOOS=%1
-rem 获取第二个参数作为可执行文件名称，如果提供的话
-if "%2" neq "" set NAME=%2.exe
-rem 编译go代码，加上额外的参数和-ldflags="-s -w"
-go build -o %NAME% %3 %4 %5 %6 %7 -ldflags="-s -w"
-rem 删除dist目录，如果存在的话，并创建一个新的目录
-if exist dist rmdir /s /q dist
-mkdir dist
-rem 复制可执行文件和config/和public/目录到dist/
-copy %NAME% dist\
-xcopy /e config\ dist\config\
-xcopy /e public\ dist\public\
+:: 获取目标平台，默认是windows
+set target=%1
+if "%target%" == "" set target=windows
+
+:: 获取可执行文件名称，默认是app
+set name=%2
+if "%name%" == "" set name=app
+
+:: 判断是否需要添加.exe后缀
+if "%target%" == "windows" set name=%name%.exe
+
+:: 获取go编译参数，非必填，并且在最后面加上参数：-ldflags="-s -w"
+set args=%3 %4 %5 %6 %7 %8 %9 -ldflags="-s -w"
+
+:: 删除旧的exe编译文件和dist目录
+if exist %name% del %name%
+if exist dist rd /s /q dist
+
+:: 执行go编译命令，指定目标平台和输出文件名
+echo 开始编译go程序为%target%平台的可执行文件：%name%
+set GOOS=%target%
+go build -o %name% %args%
+
+:: 判断是否编译成功，如果成功则创建dist目录并复制相关文件到该目录
+if exist %name% (
+    echo 编译成功！正在创建dist目录并复制相关文件...
+    md dist
+    copy /y %name% dist\
+    xcopy /e /y config\ dist\config\
+    xcopy /e /y public\ dist\public\
+    echo 完成！请查看dist目录下的内容。
+) else (
+    echo 编译失败！请检查错误信息。
+)
