@@ -37,17 +37,21 @@ if [ -d "dist" ]; then
 fi
 
 # 执行go编译命令，指定目标平台和输出文件名
-echo "开始编译go程序为$target平台的可执行文件：$name"
+echo "开始编译go程序为 $target 平台的可执行文件：$name"
 GOOS=$target go build -o $name $args
 
 # 判断是否编译成功，如果成功则创建dist目录并复制相关文件到该目录
 if [ -f "$name" ]; then
-  echo "编译成功！正在创建dist目录并复制相关文件..."
-  mkdir dist
-  cp $name dist/
-  cp -r config/ dist/config/
-  cp -r public/ dist/public/
-  echo "完成！请查看dist目录下的内容。"
+  echo "编译成功！"
+  read -p "是否将编译结果打包到dist目录？(y/n)" publish
+  if [ "$publish" = "y" ] || [ "$publish" = "Y" ]; then
+    echo "编译成功！正在创建dist目录并复制相关文件..."
+    mkdir dist
+    cp $name dist/
+    cp -r config/ dist/config/
+    cp -r public/ dist/public/
+    echo "完成！请查看dist目录下的内容。"
+    fi
 else
   echo "编译失败！请检查错误信息。"
 fi

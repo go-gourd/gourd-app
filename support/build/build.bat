@@ -19,23 +19,31 @@ if "%target%" == "windows" set name=%name%.exe
 :: 获取go编译参数，非必填，并且在最后面加上参数：-ldflags="-s -w"
 set args=%3 %4 %5 %6 %7 %8 %9 -ldflags="-s -w"
 
-:: 删除旧的exe编译文件和dist目录
+:: 删除旧的编译文件
 if exist %name% del %name%
-if exist dist rd /s /q dist
 
 :: 执行go编译命令，指定目标平台和输出文件名
-echo 开始编译go程序为%target%平台的可执行文件：%name%
+echo 开始编译为%target%平台的可执行文件：%name%
 set GOOS=%target%
 go build -o %name% %args%
 
 :: 判断是否编译成功，如果成功则创建dist目录并复制相关文件到该目录
-if exist %name% (
-    echo 编译成功！正在创建dist目录并复制相关文件...
+if exist %name%  (
+    echo 编译成功！
+) else (
+    echo 编译失败！请检查错误信息。
+    exit
+)
+
+:: 询问用户是否创建发布
+set /p choice=是否将编译结果打包到dist目录？(y/n)
+
+if "%choice%" == "y" (
+    rd /s /q dist
     md dist
     copy /y %name% dist\
     xcopy /e /y config\ dist\config\
     xcopy /e /y public\ dist\public\
+    del %name%
     echo 完成！请查看dist目录下的内容。
-) else (
-    echo 编译失败！请检查错误信息。
 )
