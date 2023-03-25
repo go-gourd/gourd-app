@@ -5,12 +5,11 @@ go 1.20
 require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-gourd/ghttp v1.0.0
-	github.com/go-gourd/gourd v0.2.7
-	github.com/go-gourd/mysql v1.0.1
+	github.com/go-gourd/gourd v0.2.9
+	github.com/go-gourd/mysql v1.0.3
 	gorm.io/gen v0.3.21
 	gorm.io/gorm v1.24.6
 	gorm.io/plugin/dbresolver v1.3.0
-	gorm.io/plugin/soft_delete v1.2.0
 )
 
 require (

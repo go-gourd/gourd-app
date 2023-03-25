@@ -30,15 +30,15 @@ func main() {
 			gen.WithMethod(methods.JsonMethod{}),
 			autoCreateTimeField, autoUpdateTimeField, softDeleteTimeField, softDeleteField,
 		},
-		//Tables: []gen_tools.Table{
-		//	{
-		//		Name: "user",
-		//		Relate: []gen_tools.TableRelate{
-		//			//关联账户表
-		//			{TableName: "account", FieldName: "Account", Type: field.HasOne, ForeignKey: "user_id", LocalKey: "id"},
-		//		},
-		//	},
-		//},
+		Tables: []gen_tools.Table{
+			{
+				Name:   "user",
+				Relate: []gen_tools.TableRelate{
+					//关联账户表
+					//{TableName: "account", FieldName: "Account", Type: field.HasOne, ForeignKey: "user_id", LocalKey: "id"},
+				},
+			},
+		},
 	}
 
 	// 开始生成orm代码
