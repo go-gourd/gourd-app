@@ -35,7 +35,7 @@ func GenTable(db Database) {
 
 	//如果没有表则生成全部表
 	if len(db.Tables) == 0 {
-		g.ApplyBasic(g.GenerateAllTable()...)
+		g.ApplyBasic(g.GenerateAllTable(db.ComOpts...)...)
 		g.Execute()
 		return
 	}
