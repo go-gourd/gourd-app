@@ -15,21 +15,24 @@ func main() {
 		panic(err.Error())
 	}
 
-	//自动时间戳字段属性
-	autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;default:0;autoCreateTime")
-	autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;default:0;autoUpdateTime")
-	softDeleteTimeField := gen.FieldGORMTag("delete_time", "column:delete_time;type:int unsigned;default:0;autoCreateTime")
+	comOpts := []gen.ModelOpt{
+		//自动时间戳字段属性
+		gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;default:0;autoCreateTime"),
+		gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;default:0;autoUpdateTime"),
+		gen.FieldType("create_time", "uint32"),
+		gen.FieldType("update_time", "uint32"),
 
-	//软删除支持
-	softDeleteField := gen.FieldType("delete_time", "soft_delete.DeletedAt")
+		//软删除字段属性
+		gen.FieldGORMTag("delete_time", "column:delete_time;type:int unsigned;default:0"),
+		gen.FieldType("delete_time", "soft_delete.DeletedAt"),
+		//Json序列化
+		gen.WithMethod(methods.JsonMethod{}),
+	}
 
 	//定义数据库
 	shopDb := gen_tools.Database{
-		DB: dbMysql,
-		ComOpts: []gen.ModelOpt{
-			gen.WithMethod(methods.JsonMethod{}),
-			autoCreateTimeField, autoUpdateTimeField, softDeleteTimeField, softDeleteField,
-		},
+		DB:      dbMysql,
+		ComOpts: comOpts,
 		Tables: []gen_tools.Table{
 			{
 				Name:   "user",
