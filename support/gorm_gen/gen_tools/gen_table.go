@@ -61,6 +61,11 @@ func GenTable(db Database) {
 				rTab := findTable(db.Tables, relate.TableName)
 				fmt.Printf("生成关联表: %s\n", relate.TableName)
 
+				//生成关联表的外键
+				tag := field.GormTag{}
+				tag.Set("foreignKey", relate.ForeignKey)
+				tag.Set("references", relate.LocalKey)
+
 				if rTab == nil {
 					//如果关联表不存在则生成
 					rTab = &Table{Name: relate.TableName}
@@ -69,7 +74,7 @@ func GenTable(db Database) {
 				//生成关联表
 				relateModel := g.GenerateModelAs(rTab.Name, rTab.GetModelName(db.TablePrefix), rTab.Opts...)
 				tableOpts = append(tableOpts, gen.FieldRelate(relate.Type, relate.FieldName, relateModel, &field.RelateConfig{
-					GORMTag: "foreignKey:" + relate.ForeignKey + ";references:" + relate.LocalKey,
+					GORMTag: tag, //"foreignKey:" + relate.ForeignKey + ";references:" + relate.LocalKey,
 				}))
 
 			}
