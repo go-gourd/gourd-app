@@ -3,9 +3,9 @@ package main
 import (
 	"github.com/go-gourd/mysql"
 	"gorm.io/gen"
-	"gorm.io/gen/field"
 	"gourd/support/gorm_gen/gen_tools"
 	"gourd/support/gorm_gen/methods"
+	"gourd/support/gorm_gen/tags"
 )
 
 // main 模型代码生成
@@ -16,35 +16,15 @@ func main() {
 		panic(err.Error())
 	}
 
-	tagCreate := func(tag field.GormTag) field.GormTag {
-		tag.Set("type", "int unsigned")
-		tag.Set("default", "0")
-		tag.Set("autoCreateTime", "")
-		return tag
-	}
-
-	tagUpdate := func(tag field.GormTag) field.GormTag {
-		tag.Set("type", "int unsigned")
-		tag.Set("default", "0")
-		tag.Set("autoUpdateTime", "")
-		return tag
-	}
-
-	tagDelete := func(tag field.GormTag) field.GormTag {
-		tag.Set("type", "int unsigned")
-		tag.Set("default", "0")
-		return tag
-	}
-
 	comOpts := []gen.ModelOpt{
 		//自动时间戳字段属性
-		gen.FieldGORMTag("create_time", tagCreate),
-		gen.FieldGORMTag("update_time", tagUpdate),
+		gen.FieldGORMTag("create_time", tags.CreateField),
+		gen.FieldGORMTag("update_time", tags.UpdateField),
 		gen.FieldType("create_time", "uint32"),
 		gen.FieldType("update_time", "uint32"),
 
 		//软删除字段属性
-		gen.FieldGORMTag("delete_time", tagDelete),
+		gen.FieldGORMTag("delete_time", tags.DeleteField),
 		gen.FieldType("delete_time", "soft_delete.DeletedAt"),
 		//Json序列化
 		gen.WithMethod(methods.JsonMethod{}),
