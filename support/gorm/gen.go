@@ -3,9 +3,9 @@ package main
 import (
 	"github.com/go-gourd/mysql"
 	"gorm.io/gen"
-	"gourd/support/gorm_gen/gen_tools"
-	"gourd/support/gorm_gen/methods"
-	"gourd/support/gorm_gen/tags"
+	"gourd/support/gorm/gen_tools"
+	"gourd/support/gorm/methods"
+	"gourd/support/gorm/tags"
 )
 
 // main 模型代码生成
