@@ -39,7 +39,6 @@ func (ct *UserController) UserAdd(c *gin.Context) {
 
 	user := model.User{
 		UserName: "go_create",
-		Extend:   "{}",
 	}
 
 	err := query.User.Create(&user)
