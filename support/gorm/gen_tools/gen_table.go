@@ -15,7 +15,7 @@ func GenTable(db Database) {
 		packName = db.Name + "_"
 	}
 	conf := gen.Config{
-		OutPath:      "./app/orm/" + packName + "query",
+		OutPath:      "./orm/" + packName + "query",
 		ModelPkgPath: packName + "model",
 		Mode:         gen.WithoutContext | gen.WithDefaultQuery,
 	}
@@ -35,12 +35,54 @@ func GenTable(db Database) {
 
 	//如果没有表则生成全部表
 	if len(db.Tables) == 0 {
-		g.ApplyBasic(g.GenerateAllTable(db.ComOpts...)...)
+		g.ApplyBasic(g.GenerateAllTable(*db.ComOpts...)...)
 		g.Execute()
 		return
 	}
 
 	var allTables []any
+
+	var handRelate func(relates []TableRelate) []gen.ModelOpt
+
+	// 处理关联表
+	handRelate = func(relates []TableRelate) []gen.ModelOpt {
+
+		var opts []gen.ModelOpt
+
+		for _, relate := range relates {
+
+			rTab := findTable(db.Tables, relate.TableName)
+			fmt.Printf("生成关联表: %s\n", relate.TableName)
+
+			if rTab == nil {
+				//如果关联表不存在则生成
+				rTab = &Table{Name: relate.TableName}
+			}
+
+			//生成关联表的外键
+			tag := field.GormTag{}
+			tag.Set("foreignKey", relate.ForeignKey)
+			tag.Set("references", relate.LocalKey)
+
+			//如果有公共参数
+			if db.ComOpts != nil {
+				rTab.Opts = append(rTab.Opts, *db.ComOpts...)
+			}
+
+			//如果有关联表的参数
+			if relate.Relate != nil {
+				rTab.Opts = append(rTab.Opts, handRelate(*relate.Relate)...)
+			}
+
+			//生成关联表
+			relateModel := g.GenerateModelAs(db.TablePrefix+rTab.Name, rTab.GetModelName(db.TablePrefix), rTab.Opts...)
+
+			opts = append(opts, gen.FieldRelate(relate.Type, relate.FieldName, relateModel, &field.RelateConfig{
+				GORMTag: tag,
+			}))
+		}
+		return opts
+	}
 
 	//生成指定表
 	for _, tab := range db.Tables {
@@ -51,33 +93,12 @@ func GenTable(db Database) {
 		tableOpts = append(tableOpts, tab.Opts...)
 
 		//如果有公共参数
-		if len(db.ComOpts) > 0 {
-			tableOpts = append(tableOpts, db.ComOpts...)
+		if db.ComOpts != nil {
+			tableOpts = append(tableOpts, *db.ComOpts...)
 		}
 
-		if len(tab.Relate) > 0 {
-			for _, relate := range tab.Relate {
-
-				rTab := findTable(db.Tables, relate.TableName)
-				fmt.Printf("生成关联表: %s\n", relate.TableName)
-
-				//生成关联表的外键
-				tag := field.GormTag{}
-				tag.Set("foreignKey", relate.ForeignKey)
-				tag.Set("references", relate.LocalKey)
-
-				if rTab == nil {
-					//如果关联表不存在则生成
-					rTab = &Table{Name: db.TablePrefix + relate.TableName}
-				}
-
-				//生成关联表
-				relateModel := g.GenerateModelAs(db.TablePrefix+rTab.Name, rTab.GetModelName(db.TablePrefix), rTab.Opts...)
-				tableOpts = append(tableOpts, gen.FieldRelate(relate.Type, relate.FieldName, relateModel, &field.RelateConfig{
-					GORMTag: tag, //"foreignKey:" + relate.ForeignKey + ";references:" + relate.LocalKey,
-				}))
-
-			}
+		if tab.Relate != nil {
+			tableOpts = append(tableOpts, handRelate(*tab.Relate)...)
 		}
 
 		newTable := g.GenerateModelAs(db.TablePrefix+tab.Name, tab.GetModelName(db.TablePrefix), tableOpts...)

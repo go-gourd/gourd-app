@@ -33,11 +33,11 @@ func main() {
 	//定义数据库
 	shopDb := gen_tools.Database{
 		DB:      dbMysql,
-		ComOpts: comOpts,
+		ComOpts: &comOpts,
 		Tables: []gen_tools.Table{
 			{
 				Name:   "user",
-				Relate: []gen_tools.TableRelate{
+				Relate: &[]gen_tools.TableRelate{
 					//关联账户表
 					//{TableName: "account", FieldName: "Account", Type: field.HasOne, ForeignKey: "user_id", LocalKey: "id"},
 				},
