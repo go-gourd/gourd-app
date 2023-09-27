@@ -1,37 +1,43 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/go-gourd/ghttp"
+	"github.com/go-chi/chi/v5"
 	apiRoute "gourd/app/http/api/route"
+	"net/http"
 )
+
+var router *chi.Mux
+
+func GetRouter() *chi.Mux {
+
+	if router != nil {
+		return router
+	}
+
+	router = chi.NewRouter()
+
+	return router
+}
 
 // RegisterRouter 初始化路由
 func RegisterRouter() {
 
-	r := ghttp.GetEngine()
+	r := GetRouter()
 
 	//主页
-	r.Any("/", func(c *gin.Context) {
-		ghttp.Write(c, "hello gourd!")
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte("hello gourd!"))
 	})
 
 	//404
-	r.NoRoute(func(c *gin.Context) {
+	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 
-		//判断是否是静态文件并返回
-		err := ghttp.WriteStaticFile(c, "")
-		if err == nil {
-			return
-		}
-
-		ghttp.Write(c, "404 not found."+c.Request.URL.Path)
+		w.WriteHeader(404)
+		_, _ = w.Write([]byte("404 not found."))
 	})
 
 	//注册api相关路由
-	apiGroup := r.Group("/api")
-	{
-		apiRoute.RegisterRoute(apiGroup)
-	}
+	api := chi.NewRouter().Group(apiRoute.RegisterRoute)
+	r.Mount("/api", api)
 
 }
