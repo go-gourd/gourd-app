@@ -1,11 +1,20 @@
 # 日志记录级别
 level = "debug"
 
+# 输出格式 "json" 或者 "console"
+encoding = "json"
+
 # 日志文件
-logFile = "./runtime/log/log.txt"
+log_file = "./runtime/log/log.txt"
 
 # 错误日志文件 -默认不独立存放
-logErrorFile = "./runtime/log/error.txt"
+error_file = "./runtime/log/error.txt"
+
+# 归档方式 time、size
+division = "time"
+
+# 按时间分割日志的单位 year、month、day、hour、minute
+time_unit = "day"
 
 # 是否开启控制台输出
 console = true

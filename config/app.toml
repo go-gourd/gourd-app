@@ -6,4 +6,4 @@ name = "gourd"
 debug = false
 
 # 临时文件目录
-tempDir = "./runtime"
+temp = "./runtime"

@@ -13,4 +13,4 @@ pass = "pass"
 #数据库名
 database = "database"
 # 慢日志阈值（毫秒）0为不开启
-slowLogTime = 500
+slow_log_time = 500
