@@ -51,4 +51,9 @@ func Register() {
 		log.Debug("stop event.")
 	})
 
+	// 测试事件
+	event.Listen("test", func(params any) {
+		log.Debug("test.")
+	})
+
 }

@@ -14,8 +14,8 @@ type UserController struct {
 	base.BaseController //继承基础控制器
 }
 
-// UserInfo 获取用户信息
-func (ct *UserController) UserInfo(w http.ResponseWriter, _ *http.Request) {
+// Info 获取用户信息
+func (ct *UserController) Info(w http.ResponseWriter, _ *http.Request) {
 
 	// 需要查询的字段
 	fields := []field.Expr{
@@ -32,8 +32,8 @@ func (ct *UserController) UserInfo(w http.ResponseWriter, _ *http.Request) {
 	_ = ct.Success(w, "", user)
 }
 
-// UserAdd 创建用户
-func (ct *UserController) UserAdd(w http.ResponseWriter, _ *http.Request) {
+// Add 创建用户
+func (ct *UserController) Add(w http.ResponseWriter, _ *http.Request) {
 
 	user := model.User{
 		UserName: "go_create",

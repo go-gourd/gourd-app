@@ -7,7 +7,11 @@ import (
 
 // RegisterRoute 注册路由组接口
 func RegisterRoute(r chi.Router) {
-	h := apiC.UserController{}
-	r.HandleFunc("/userInfo", h.UserInfo)
-	r.HandleFunc("/userAdd", h.UserAdd)
+	user := apiC.UserController{}
+	r.HandleFunc("/user/info", user.Info)
+	r.HandleFunc("/user/add", user.Add)
+
+	test := apiC.TestController{}
+	r.HandleFunc("/test/test", test.Test)
+
 }
