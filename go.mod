@@ -6,7 +6,6 @@ require (
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-gourd/database v1.0.0
 	github.com/go-gourd/gourd v1.0.4
-	github.com/go-gourd/mysql v1.0.5
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/gen v0.3.23
 	gorm.io/gorm v1.25.4
@@ -24,6 +23,7 @@ require (
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/sevlyar/go-daemon v0.1.6 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect

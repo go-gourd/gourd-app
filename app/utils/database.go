@@ -11,13 +11,6 @@ import (
 	"time"
 )
 
-type RedisConfig struct {
-	Host     string `toml:"host"`
-	Port     string `toml:"port"`
-	Password string `toml:"password"`
-	DB       int    `toml:"db"`
-}
-
 type gormLogWriter struct{}
 
 func (w gormLogWriter) Printf(format string, args ...any) {

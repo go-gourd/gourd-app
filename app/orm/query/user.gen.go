@@ -31,9 +31,10 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.UserName = field.NewString(tableName, "user_name")
 	_user.Mobile = field.NewString(tableName, "mobile")
 	_user.Password = field.NewString(tableName, "password")
-	_user.CreateTime = field.NewUint32(tableName, "create_time")
-	_user.UpdateTime = field.NewUint32(tableName, "update_time")
+	_user.CreateTime = field.NewUint(tableName, "create_time")
+	_user.UpdateTime = field.NewUint(tableName, "update_time")
 	_user.DeleteTime = field.NewField(tableName, "delete_time")
+	_user.Extend = field.NewString(tableName, "extend")
 
 	_user.fillFieldMap()
 
@@ -45,12 +46,13 @@ type user struct {
 
 	ALL        field.Asterisk
 	ID         field.Int32
-	UserName   field.String // 用户名
-	Mobile     field.String // 手机号
-	Password   field.String // 密码
-	CreateTime field.Uint32 // 创建时间
-	UpdateTime field.Uint32 // 更新时间
-	DeleteTime field.Field  // 删除时间
+	UserName   field.String
+	Mobile     field.String
+	Password   field.String
+	CreateTime field.Uint
+	UpdateTime field.Uint
+	DeleteTime field.Field
+	Extend     field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -71,9 +73,10 @@ func (u *user) updateTableName(table string) *user {
 	u.UserName = field.NewString(table, "user_name")
 	u.Mobile = field.NewString(table, "mobile")
 	u.Password = field.NewString(table, "password")
-	u.CreateTime = field.NewUint32(table, "create_time")
-	u.UpdateTime = field.NewUint32(table, "update_time")
+	u.CreateTime = field.NewUint(table, "create_time")
+	u.UpdateTime = field.NewUint(table, "update_time")
 	u.DeleteTime = field.NewField(table, "delete_time")
+	u.Extend = field.NewString(table, "extend")
 
 	u.fillFieldMap()
 
@@ -90,7 +93,7 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 7)
+	u.fieldMap = make(map[string]field.Expr, 8)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["user_name"] = u.UserName
 	u.fieldMap["mobile"] = u.Mobile
@@ -98,6 +101,7 @@ func (u *user) fillFieldMap() {
 	u.fieldMap["create_time"] = u.CreateTime
 	u.fieldMap["update_time"] = u.UpdateTime
 	u.fieldMap["delete_time"] = u.DeleteTime
+	u.fieldMap["extend"] = u.Extend
 }
 
 func (u user) clone(db *gorm.DB) user {
