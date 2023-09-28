@@ -76,6 +76,7 @@ func GenTable(db Database) {
 
 			//生成关联表
 			relateModel := g.GenerateModelAs(db.TablePrefix+rTab.Name, rTab.GetModelName(db.TablePrefix), rTab.Opts...)
+			//allTables = append(allTables, relateModel)
 
 			opts = append(opts, gen.FieldRelate(relate.Type, relate.FieldName, relateModel, &field.RelateConfig{
 				GORMTag: tag,
