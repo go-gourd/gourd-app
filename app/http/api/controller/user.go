@@ -15,7 +15,7 @@ type UserController struct {
 }
 
 // UserInfo 获取用户信息
-func (ct *UserController) UserInfo(w http.ResponseWriter, r *http.Request) {
+func (ct *UserController) UserInfo(w http.ResponseWriter, _ *http.Request) {
 
 	// 需要查询的字段
 	fields := []field.Expr{
@@ -33,7 +33,7 @@ func (ct *UserController) UserInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 // UserAdd 创建用户
-func (ct *UserController) UserAdd(w http.ResponseWriter, r *http.Request) {
+func (ct *UserController) UserAdd(w http.ResponseWriter, _ *http.Request) {
 
 	user := model.User{
 		UserName: "go_create",
@@ -45,5 +45,5 @@ func (ct *UserController) UserAdd(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 响应结果
-	ct.Success(w, "", user)
+	_ = ct.Success(w, "", user)
 }

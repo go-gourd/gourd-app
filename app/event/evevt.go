@@ -5,7 +5,7 @@ import (
 	"github.com/go-gourd/gourd/log"
 	"gourd/app/cmd"
 	"gourd/app/cron"
-	"gourd/app/http/router"
+	"gourd/app/http"
 	"gourd/app/utils"
 )
 
@@ -31,9 +31,6 @@ func Register() {
 	event.Listen("app.init", func(params any) {
 		log.Debug("init event.")
 
-		// 注册路由
-		router.RegisterRouter()
-
 		// 注册定时任务
 		cron.RegisterCron()
 
@@ -42,6 +39,11 @@ func Register() {
 	// Start事件(系统) -启动后执行
 	event.Listen("app.start", func(params any) {
 		log.Debug("start event.")
+
+		// 注册路由
+		http.RegisterRouter()
+		// 启动Http服务
+		http.Start()
 	})
 
 	// Stop事件(系统) -终止时执行
