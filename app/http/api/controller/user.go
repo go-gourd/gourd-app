@@ -11,7 +11,7 @@ import (
 
 // UserController 用户控制器
 type UserController struct {
-	base.BaseController //继承基础控制器
+	base.Controller //继承基础控制器
 }
 
 // Info 获取用户信息

@@ -8,7 +8,7 @@ import (
 
 // TestsController 测试
 type TestsController struct {
-	base.BaseController //继承基础控制器
+	base.Controller //继承基础控制器
 }
 
 // Test 测试

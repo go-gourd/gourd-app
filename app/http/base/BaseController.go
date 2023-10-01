@@ -5,12 +5,12 @@ import (
 	"net/http"
 )
 
-// BaseController 基础控制器
-type BaseController struct {
+// Controller 基础控制器
+type Controller struct {
 }
 
 // Success 成功时响应
-func (*BaseController) Success(w http.ResponseWriter, message string, data any) (err error) {
+func (*Controller) Success(w http.ResponseWriter, message string, data any) (err error) {
 	if message == "" {
 		message = "success"
 	}
@@ -26,7 +26,7 @@ func (*BaseController) Success(w http.ResponseWriter, message string, data any) 
 }
 
 // Fail 失败响应
-func (*BaseController) Fail(w http.ResponseWriter, code int, message string, data any) (err error) {
+func (*Controller) Fail(w http.ResponseWriter, code int, message string, data any) (err error) {
 	if message == "" {
 		message = "fail"
 	}

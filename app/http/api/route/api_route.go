@@ -11,7 +11,7 @@ func RegisterRoute(r chi.Router) {
 	r.HandleFunc("/user/info", user.Info)
 	r.HandleFunc("/user/add", user.Add)
 
-	test := apiC.TestsController{}
-	r.HandleFunc("/tests/test", test.Test)
+	tests := apiC.TestsController{}
+	r.HandleFunc("/tests/test", tests.Test)
 
 }
