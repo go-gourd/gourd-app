@@ -6,13 +6,13 @@ import (
 	"net/http"
 )
 
-// TestController 测试
-type TestController struct {
+// TestsController 测试
+type TestsController struct {
 	base.BaseController //继承基础控制器
 }
 
 // Test 测试
-func (ct *TestController) Test(w http.ResponseWriter, _ *http.Request) {
+func (ct *TestsController) Test(w http.ResponseWriter, _ *http.Request) {
 
 	event.Trigger("test", "test value")
 
