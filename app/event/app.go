@@ -24,7 +24,6 @@ func Register() {
 
 		// 注册命令行
 		cmd.RegisterCmd()
-
 	})
 
 	// Init事件(应用) -初始化完成执行
@@ -36,7 +35,6 @@ func Register() {
 
 		// 注册路由
 		http.RegisterRouter()
-
 	})
 
 	// Start事件(应用) -启动后执行
@@ -45,16 +43,14 @@ func Register() {
 
 		// 启动Http服务
 		http.Start()
+
+		// 注册自定义事件
+		testRegister()
 	})
 
 	// Stop事件(应用) -终止时执行
 	event.Listen("app.stop", func(params any) {
 		log.Debug("stop event.")
-	})
-
-	// 测试事件
-	event.Listen("test", func(params any) {
-		log.Debug("test.")
 	})
 
 }
