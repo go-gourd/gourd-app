@@ -12,7 +12,7 @@ import (
 // Register 事件注册
 func Register() {
 
-	// Boot事件(系统) -启动时执行
+	// Boot事件(应用) -初始化应用时执行
 	event.Listen("app.boot", func(params any) {
 		log.Debug("boot event.")
 
@@ -27,26 +27,27 @@ func Register() {
 
 	})
 
-	// Init事件(系统) -初始化完成执行
+	// Init事件(应用) -初始化完成执行
 	event.Listen("app.init", func(params any) {
 		log.Debug("init event.")
 
 		// 注册定时任务
-		cron.RegisterCron()
-
-	})
-
-	// Start事件(系统) -启动后执行
-	event.Listen("app.start", func(params any) {
-		log.Debug("start event.")
+		cron.Register()
 
 		// 注册路由
 		http.RegisterRouter()
+
+	})
+
+	// Start事件(应用) -启动后执行
+	event.Listen("app.start", func(params any) {
+		log.Debug("start event.")
+
 		// 启动Http服务
 		http.Start()
 	})
 
-	// Stop事件(系统) -终止时执行
+	// Stop事件(应用) -终止时执行
 	event.Listen("app.stop", func(params any) {
 		log.Debug("stop event.")
 	})
