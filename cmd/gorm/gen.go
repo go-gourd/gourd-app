@@ -5,9 +5,9 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
-	"gourd/support/gorm/gen_tools"
-	"gourd/support/gorm/methods"
-	"gourd/support/gorm/tags"
+	"gourd/cmd/gorm/gen_tools"
+	"gourd/cmd/gorm/methods"
+	"gourd/cmd/gorm/tags"
 )
 
 // main 模型代码生成
