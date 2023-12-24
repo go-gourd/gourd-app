@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/go-gourd/gourd"
-	"gourd/app/event"
+	"gourd/internal/event"
 )
 
 func main() {

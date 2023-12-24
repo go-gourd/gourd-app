@@ -6,7 +6,7 @@ import (
 	"gourd/app/cmd"
 	"gourd/app/cron"
 	"gourd/app/http"
-	"gourd/app/utils"
+	"gourd/internal/tools"
 )
 
 // Register 事件注册
@@ -17,7 +17,7 @@ func Register() {
 		log.Debug("boot event.")
 
 		// 连接数据库
-		err := utils.InitDatabase()
+		err := tools.InitDatabase()
 		if err != nil {
 			panic(err.Error())
 		}
