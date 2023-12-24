@@ -15,13 +15,12 @@ const TableNameUser = "user"
 // User mapped from table <user>
 type User struct {
 	ID         int32                 `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	UserName   string                `gorm:"column:user_name;not null" json:"user_name"`
-	Mobile     string                `gorm:"column:mobile;not null" json:"mobile"`
-	Password   string                `gorm:"column:password;not null" json:"password"`
-	CreateTime uint                  `gorm:"column:create_time;not null;autoCreateTime" json:"create_time"`
-	UpdateTime uint                  `gorm:"column:update_time;not null;autoUpdateTime" json:"update_time"`
-	DeleteTime soft_delete.DeletedAt `gorm:"column:delete_time;not null" json:"delete_time"`
-	Extend     string                `gorm:"column:extend" json:"extend"`
+	Username   string                `gorm:"column:username;not null" json:"username"`
+	Nickname   string                `gorm:"column:nickname" json:"nickname"`
+	Mobile     string                `gorm:"column:mobile" json:"mobile"`
+	CreateTime uint                  `gorm:"column:create_time;autoCreateTime" json:"create_time"`
+	UpdateTime uint                  `gorm:"column:update_time;autoUpdateTime" json:"update_time"`
+	DeleteTime soft_delete.DeletedAt `gorm:"column:delete_time" json:"delete_time"`
 }
 
 // MarshalBinary 支持json序列化

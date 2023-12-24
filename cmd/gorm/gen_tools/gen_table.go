@@ -15,7 +15,7 @@ func GenTable(db Database) {
 		packName = db.Name + "_"
 	}
 	conf := gen.Config{
-		OutPath:      "./app/orm/" + packName + "query",
+		OutPath:      "./internal/orm/" + packName + "query",
 		ModelPkgPath: packName + "model",
 		Mode:         gen.WithoutContext | gen.WithDefaultQuery,
 	}

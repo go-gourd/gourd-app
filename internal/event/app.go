@@ -3,9 +3,9 @@ package event
 import (
 	"github.com/go-gourd/gourd/event"
 	"github.com/go-gourd/gourd/log"
-	"gourd/app/cmd"
-	"gourd/app/cron"
-	"gourd/app/http"
+	"gourd/internal/cmd"
+	"gourd/internal/cron"
+	"gourd/internal/http"
 	"gourd/internal/tools"
 )
 
@@ -43,9 +43,6 @@ func Register() {
 
 		// 启动Http服务
 		http.Start()
-
-		// 注册自定义事件
-		testRegister()
 	})
 
 	// Stop事件(应用) -终止时执行

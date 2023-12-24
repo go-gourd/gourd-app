@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/go-gourd/gourd/event"
-	"gourd/app/http/base"
+	"gourd/internal/http/base"
 	"net/http"
 )
 

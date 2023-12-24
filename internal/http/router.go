@@ -3,7 +3,7 @@ package http
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-gourd/gourd/config"
-	apiRoute "gourd/app/http/api/route"
+	apiRoute "gourd/internal/app/api/route"
 	"net/http"
 	"os"
 )

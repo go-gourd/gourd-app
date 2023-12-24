@@ -3,9 +3,9 @@ package controller
 import (
 	"fmt"
 	"gorm.io/gen/field"
-	"gourd/app/http/base"
-	"gourd/app/orm/model"
-	"gourd/app/orm/query"
+	"gourd/internal/http/base"
+	"gourd/internal/orm/model"
+	"gourd/internal/orm/query"
 	"net/http"
 )
 
@@ -20,7 +20,7 @@ func (ct *UserController) Info(w http.ResponseWriter, _ *http.Request) {
 	// 需要查询的字段
 	fields := []field.Expr{
 		query.User.ID,
-		query.User.UserName,
+		query.User.Username,
 	}
 
 	user, _ := query.User.
@@ -36,7 +36,7 @@ func (ct *UserController) Info(w http.ResponseWriter, _ *http.Request) {
 func (ct *UserController) Add(w http.ResponseWriter, _ *http.Request) {
 
 	user := model.User{
-		UserName: "go_create",
+		Username: "go_create",
 	}
 
 	err := query.User.Create(&user)

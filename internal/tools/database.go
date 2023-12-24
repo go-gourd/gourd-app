@@ -7,7 +7,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"gourd/app/orm/query"
+	"gourd/internal/orm/query"
 	"time"
 )
 

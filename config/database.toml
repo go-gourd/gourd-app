@@ -3,14 +3,14 @@
 #数据库类型
 type = "mysql"
 #数据库地址
-host = "localhost"
+host = "ecs.kyour.cn"
 #端口
-port = 3306
+port = 8306
 #用户
-user = "user"
+user = "root"
 #密码
-pass = "pass"
+pass = "70701414"
 #数据库名
-database = "database"
+database = "test"
 # 慢日志阈值（毫秒）0为不开启
 slow_log_time = 500
