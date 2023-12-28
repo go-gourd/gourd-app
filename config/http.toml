@@ -9,4 +9,4 @@ host = ""
 port = 8888
 
 # 静态资源路径，为空则不开启静态文件响应
-public = "./public"
+static = "./web/static"
