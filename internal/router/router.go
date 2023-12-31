@@ -1,4 +1,4 @@
-package libhttp
+package router
 
 import (
 	"github.com/go-chi/chi/v5"
@@ -21,8 +21,8 @@ func GetRouter() *chi.Mux {
 	return router
 }
 
-// RegisterRouter 初始化路由
-func RegisterRouter() {
+// Register 注册路由
+func Register() {
 
 	r := GetRouter()
 
@@ -34,10 +34,10 @@ func RegisterRouter() {
 	// 404响应
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 
-		// 返回静态资源
+		// 若路由未定义，检测是否为静态资源
 		conf := config.GetHttpConfig()
-		if conf.Public != "" {
-			filepath := conf.Public + r.URL.Path
+		if conf.Static != "" {
+			filepath := conf.Static + r.URL.Path
 			//判断文件是否存在
 			_, err := os.Stat(filepath)
 			if err == nil {

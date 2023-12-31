@@ -1,4 +1,4 @@
-package libhttp
+package router
 
 import (
 	"fmt"
@@ -7,7 +7,8 @@ import (
 	"net/http"
 )
 
-func Start() {
+// StartServer 启动http服务
+func StartServer() {
 
 	r := GetRouter()
 

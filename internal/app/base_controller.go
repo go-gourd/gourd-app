@@ -1,4 +1,4 @@
-package libhttp
+package app
 
 import (
 	"encoding/json"
