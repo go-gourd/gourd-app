@@ -2,13 +2,13 @@ package controller
 
 import (
 	"github.com/go-gourd/gourd/event"
-	"gourd/internal/http/base"
+	"gourd/internal/pkg/libhttp"
 	"net/http"
 )
 
 // TestsController 测试
 type TestsController struct {
-	base.Controller //继承基础控制器
+	libhttp.BaseController //继承基础控制器
 }
 
 // Test 测试

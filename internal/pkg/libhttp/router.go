@@ -1,4 +1,4 @@
-package http
+package libhttp
 
 import (
 	"github.com/go-chi/chi/v5"

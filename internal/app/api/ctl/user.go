@@ -3,15 +3,15 @@ package controller
 import (
 	"fmt"
 	"gorm.io/gen/field"
-	"gourd/internal/http/base"
 	"gourd/internal/orm/model"
 	"gourd/internal/orm/query"
+	"gourd/internal/pkg/libhttp"
 	"net/http"
 )
 
 // UserController 用户控制器
 type UserController struct {
-	base.Controller //继承基础控制器
+	libhttp.BaseController //继承基础控制器
 }
 
 // Info 获取用户信息

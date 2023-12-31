@@ -1,4 +1,4 @@
-package http
+package libhttp
 
 import (
 	"fmt"

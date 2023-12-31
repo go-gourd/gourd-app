@@ -1,16 +1,17 @@
-package http
+package libhttp
 
 import (
 	"encoding/json"
 	"net/http"
 )
 
-// Controller 基础控制器
-type Controller struct {
+// BaseController 基础控制器
+// 所有控制器都应继承此控制器，可以在此控制器中定义公共方法
+type BaseController struct {
 }
 
 // Success 成功时响应
-func (*Controller) Success(w http.ResponseWriter, message string, data any) (err error) {
+func (*BaseController) Success(w http.ResponseWriter, message string, data any) (err error) {
 	if message == "" {
 		message = "success"
 	}
@@ -26,7 +27,7 @@ func (*Controller) Success(w http.ResponseWriter, message string, data any) (err
 }
 
 // Fail 失败响应
-func (*Controller) Fail(w http.ResponseWriter, code int, message string, data any) (err error) {
+func (*BaseController) Fail(w http.ResponseWriter, code int, message string, data any) (err error) {
 	if message == "" {
 		message = "fail"
 	}
