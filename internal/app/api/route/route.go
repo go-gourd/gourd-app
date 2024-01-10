@@ -2,16 +2,16 @@ package route
 
 import (
 	"github.com/go-chi/chi/v5"
-	apiC "gourd/internal/app/api/ctl"
+	apiCtls "gourd/internal/app/api/ctl"
 )
 
-// RegisterRoute 注册路由组接口
+// RegisterRoute 注册路由组
 func RegisterRoute(r chi.Router) {
-	user := apiC.UserController{}
-	r.HandleFunc("/user/info", user.Info)
-	r.HandleFunc("/user/add", user.Add)
+	userCtl := apiCtls.UserController{}
+	r.HandleFunc("/user/info", userCtl.Info)
+	r.HandleFunc("/user/add", userCtl.Add)
 
-	tests := apiC.TestsController{}
-	r.HandleFunc("/tests/test", tests.Test)
+	testsCtl := apiCtls.TestsController{}
+	r.HandleFunc("/tests/test", testsCtl.Test)
 
 }

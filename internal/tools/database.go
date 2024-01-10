@@ -19,7 +19,7 @@ func (w customLogWriter) Printf(format string, args ...any) {
 }
 
 // 初始化logger
-func initLogger(dbConfig *database.Config) logger.Interface {
+func initDbLogger(dbConfig *database.Config) logger.Interface {
 	return logger.New(
 		customLogWriter{},
 		logger.Config{
@@ -43,7 +43,7 @@ func InitDatabase() error {
 	// 连接数据库
 	dsn := dbConfig.GenerateDsn()
 	gormConfig := &gorm.Config{
-		Logger: initLogger(dbConfig),
+		Logger: initDbLogger(dbConfig),
 	}
 	mysqlDb, err := gorm.Open(mysql.Open(dsn), gormConfig)
 	if err != nil {

@@ -5,6 +5,7 @@ import (
 	"gourd/internal/orm/query"
 )
 
+// UserService 用户服务
 type UserService struct {
 }
 

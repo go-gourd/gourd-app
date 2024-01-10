@@ -12,10 +12,10 @@ type TestsController struct {
 }
 
 // Test 测试
-func (ct *TestsController) Test(w http.ResponseWriter, _ *http.Request) {
+func (ctl *TestsController) Test(w http.ResponseWriter, _ *http.Request) {
 
 	event.Trigger("test", "test value")
 
 	// 响应结果
-	_ = ct.Success(w, "", nil)
+	_ = ctl.Success(w, "", nil)
 }
