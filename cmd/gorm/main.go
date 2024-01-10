@@ -23,6 +23,7 @@ func main() {
 		panic("mysql connect failed: " + err.Error())
 	}
 
+	// 公共属性
 	comOpts := []gen.ModelOpt{
 		//自动时间戳字段属性
 		gen.FieldGORMTag("create_time", tags.CreateField),
@@ -32,15 +33,18 @@ func main() {
 
 		//软删除字段属性
 		gen.FieldType("delete_time", "soft_delete.DeletedAt"),
+
 		//Json序列化
 		gen.WithMethod(methods.JsonMethod{}),
 	}
 
 	//定义数据库
 	shopDb := gen_tools.Database{
-		DB:      mysqlDb,
+		//Name: "mysql", // 数据库别名，多库连接时用于区分
+		DB: mysqlDb,
+		// 公共属性
 		ComOpts: &comOpts,
-		// 需要生成代码的数据表，需要被关联的模型需要放在前面
+		// 需要生成代码的数据表，需要被关联的模型需要放在前面，默认生成所有表
 		Tables: []gen_tools.Table{
 			{
 				Name:   "user",

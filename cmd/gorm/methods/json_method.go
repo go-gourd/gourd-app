@@ -2,7 +2,7 @@ package methods
 
 import "encoding/json"
 
-// JsonMethod 实现redis序列化方法
+// JsonMethod 实现redis序列化、反序列化接口方法
 type JsonMethod struct {
 }
 
