@@ -23,7 +23,7 @@ func Register() {
 		}
 
 		// 注册命令行
-		cmd.RegisterCmd()
+		cmd.Register()
 	})
 
 	// Init事件(应用) -初始化完成执行
@@ -49,5 +49,7 @@ func Register() {
 	event.Listen("app.stop", func(params any) {
 		log.Debug("stop event.")
 	})
+
+	// 可以注册更多自定义事件监听
 
 }
