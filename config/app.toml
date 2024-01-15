@@ -2,8 +2,17 @@
 # 应用名称
 name = "gourd"
 
+# 应用版本
+version = "1.0.0"
+
+# 应用描述
+version_num = 1
+
 # 调试模式
 debug = false
 
+# 运行时目录
+runtime = "./runtime"
+
 # 临时文件目录
-temp = "./runtime"
+temp = "./runtime/temp"
