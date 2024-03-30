@@ -2,40 +2,43 @@ package mqtt
 
 import (
 	"fmt"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/go-gourd/gourd/config"
+	"gourd/internal/app/mqtt/subscribe"
 )
 
-var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
-	fmt.Printf("Received message: %s from topic: %s\n", msg.Payload(), msg.Topic())
+// Config 配置
+type Config struct {
+	Broker   string `toml:"broker" json:"broker"`
+	Port     int    `toml:"port" json:"port"`
+	Username string `toml:"username" json:"username"`
+	Password string `toml:"password" json:"password"`
+	ClientId string `toml:"client_id" json:"client_id"`
 }
 
-var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-	fmt.Println("Connected")
-}
-
-var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	fmt.Printf("Connect lost: %v", err)
-}
-
+// ServiceStart 启动mqtt服务
 func ServiceStart() {
-	var broker = "1.95.11.154"
-	var port = 1883
+
+	mqttConfig := &Config{}
+	err := config.Unmarshal("mqtt", mqttConfig)
+	if err != nil {
+		panic(err)
+	}
+
 	opts := mqtt.NewClientOptions()
-	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", broker, port))
-	opts.SetClientID("test_go")
-	opts.SetUsername("test")
-	opts.SetPassword("test123")
-	opts.SetDefaultPublishHandler(messagePubHandler)
-	opts.OnConnect = connectHandler
-	opts.OnConnectionLost = connectLostHandler
+	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", mqttConfig.Broker, mqttConfig.Port))
+	opts.SetUsername(mqttConfig.Username)
+	opts.SetPassword(mqttConfig.Password)
+	opts.SetClientID(mqttConfig.ClientId)
+	opts.SetDefaultPublishHandler(subscribe.DefaultHandler)
 	client := mqtt.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}
 
-	topic := "topic/test"
-	token := client.Subscribe(topic, 1, nil)
+	// 订阅客户端事件
+	topic := "$SYS/brokers/+/clients/#"
+	token := client.Subscribe(topic, 1, subscribe.SysBrokersClientsHandler)
 	token.Wait()
 
 	select {}
