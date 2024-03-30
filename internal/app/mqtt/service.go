@@ -1,7 +1,6 @@
 package mqtt
 
 import (
-	"fmt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/go-gourd/gourd/config"
 	"gourd/internal/app/mqtt/subscribe"
@@ -10,7 +9,6 @@ import (
 // Config 配置
 type Config struct {
 	Broker   string `toml:"broker" json:"broker"`
-	Port     int    `toml:"port" json:"port"`
 	Username string `toml:"username" json:"username"`
 	Password string `toml:"password" json:"password"`
 	ClientId string `toml:"client_id" json:"client_id"`
@@ -26,7 +24,7 @@ func ServiceStart() {
 	}
 
 	opts := mqtt.NewClientOptions()
-	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", mqttConfig.Broker, mqttConfig.Port))
+	opts.AddBroker(mqttConfig.Broker)
 	opts.SetUsername(mqttConfig.Username)
 	opts.SetPassword(mqttConfig.Password)
 	opts.SetClientID(mqttConfig.ClientId)
