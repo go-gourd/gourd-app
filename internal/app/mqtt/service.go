@@ -1,7 +1,6 @@
 package mqtt
 
 import (
-	"encoding/hex"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/go-gourd/gourd/config"
 	"gourd/internal/app/mqtt/subscribe"
@@ -30,9 +29,9 @@ func ServiceStart() {
 
 	// 如果需分布式部署，则随机生成一个客户端id
 	if mqttConfig.Distributed {
-		// 生成当前时间纳秒的md5值取后6位作为当前客户端id
-		nanoBytes := []byte(strconv.FormatInt(time.Now().UnixNano(), 10))
-		mqttConfig.ClientId += hex.EncodeToString(nanoBytes[:])
+		// 生成当前时间纳秒的16进制作为当前客户端id标识
+		nanoBytes := strconv.FormatInt(time.Now().UnixNano(), 16)
+		mqttConfig.ClientId += nanoBytes
 	}
 
 	opts := mqtt.NewClientOptions()

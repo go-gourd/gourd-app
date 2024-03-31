@@ -15,4 +15,4 @@ client_id = "go-server-"
 share_prefix = "$share/go/"
 
 # 是否分布式部署（随机客户端ID）
-distributed = false
+distributed = true
