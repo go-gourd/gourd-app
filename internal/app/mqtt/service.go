@@ -1,17 +1,22 @@
 package mqtt
 
 import (
+	"encoding/hex"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/go-gourd/gourd/config"
 	"gourd/internal/app/mqtt/subscribe"
+	"strconv"
+	"time"
 )
 
 // Config 配置
 type Config struct {
-	Broker   string `toml:"broker" json:"broker"`
-	Username string `toml:"username" json:"username"`
-	Password string `toml:"password" json:"password"`
-	ClientId string `toml:"client_id" json:"client_id"`
+	Broker      string `toml:"broker" json:"broker"`
+	Username    string `toml:"username" json:"username"`
+	Password    string `toml:"password" json:"password"`
+	ClientId    string `toml:"client_id" json:"client_id"`
+	SharePrefix string `toml:"share_prefix" json:"share_prefix"`
+	Distributed bool   `toml:"distributed" json:"distributed"`
 }
 
 // ServiceStart 启动mqtt服务
@@ -21,6 +26,13 @@ func ServiceStart() {
 	err := config.Unmarshal("mqtt", mqttConfig)
 	if err != nil {
 		panic(err)
+	}
+
+	// 如果需分布式部署，则随机生成一个客户端id
+	if mqttConfig.Distributed {
+		// 生成当前时间纳秒的md5值取后6位作为当前客户端id
+		nanoBytes := []byte(strconv.FormatInt(time.Now().UnixNano(), 10))
+		mqttConfig.ClientId += hex.EncodeToString(nanoBytes[:])
 	}
 
 	opts := mqtt.NewClientOptions()
@@ -35,8 +47,13 @@ func ServiceStart() {
 	}
 
 	// 订阅客户端事件
-	topic := "$SYS/brokers/+/clients/#"
+	topic := mqttConfig.SharePrefix + "$SYS/brokers/+/clients/#"
 	token := client.Subscribe(topic, 1, subscribe.SysBrokersClientsHandler)
+	token.Wait()
+
+	// 订阅客户端事件
+	topic = mqttConfig.SharePrefix + "device/basic/#"
+	token = client.Subscribe(topic, 1, subscribe.DeviceBasicHandler)
 	token.Wait()
 
 	select {}
