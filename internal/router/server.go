@@ -10,8 +10,6 @@ import (
 // StartServer 启动http服务
 func StartServer() {
 
-	r := GetRouter()
-
 	// 获取http配置
 	conf := config.GetHttpConfig()
 
@@ -20,6 +18,7 @@ func StartServer() {
 		return
 	}
 
+	r := GetRouter()
 	addr := fmt.Sprintf("%s:%d", conf.Host, conf.Port)
 
 	log.Info("Started http server. " + addr)
