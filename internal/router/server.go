@@ -18,12 +18,12 @@ func StartServer() {
 		return
 	}
 
-	r := GetRouter()
 	addr := fmt.Sprintf("%s:%d", conf.Host, conf.Port)
 
 	log.Info("Started http server. " + addr)
 
 	go func() {
+		r := GetRouter()
 		// 启动http服务
 		err := http.ListenAndServe(addr, r)
 		if err != nil {
