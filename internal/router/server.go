@@ -10,8 +10,6 @@ import (
 // StartServer 启动http服务
 func StartServer() {
 
-	r := GetRouter()
-
 	// 获取http配置
 	conf := config.GetHttpConfig()
 
@@ -26,6 +24,7 @@ func StartServer() {
 
 	go func() {
 		// 启动http服务
+		r := GetRouter()
 		err := http.ListenAndServe(addr, r)
 		if err != nil {
 			panic(err)
