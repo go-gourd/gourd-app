@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/go-gourd/gourd/config"
 	apiRoute "gourd/internal/app/api/route"
+	"gourd/internal/config"
 	"net/http"
 	"os"
 )
@@ -35,8 +35,8 @@ func Register() {
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 
 		// 若路由未定义，检测是否为静态资源
-		conf := config.GetHttpConfig()
-		if conf.Static != "" {
+		conf, err := config.GetHttpConfig()
+		if err == nil && conf.Static != "" {
 			filepath := conf.Static + r.URL.Path
 			//判断文件是否存在
 			_, err := os.Stat(filepath)
@@ -54,6 +54,7 @@ func Register() {
 	// 注册api相关路由
 	apiGroup := chi.NewRouter().
 		Group(apiRoute.RegisterRoute)
+
 	r.Mount("/api", apiGroup)
 
 }

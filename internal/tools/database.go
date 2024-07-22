@@ -2,12 +2,13 @@ package tools
 
 import (
 	"errors"
+	"fmt"
 	"github.com/go-gourd/database"
-	"github.com/go-gourd/gourd/log"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gourd/internal/orm/query"
+	"log/slog"
 	"time"
 )
 
@@ -15,7 +16,7 @@ import (
 type customLogWriter struct{}
 
 func (w customLogWriter) Printf(format string, args ...any) {
-	log.Warnf(format, args...)
+	slog.Warn(fmt.Sprintf(format, args...))
 }
 
 // 初始化logger

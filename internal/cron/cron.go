@@ -1,8 +1,8 @@
 package cron
 
 import (
-	"fmt"
 	"github.com/go-gourd/gourd/cron"
+	"log/slog"
 	"time"
 )
 
@@ -10,7 +10,7 @@ import (
 func Register() {
 
 	_ = cron.Add("* * * * *", func() {
-		fmt.Printf("定时任务示例 %s\n", time.Now().Format(time.TimeOnly))
+		slog.Info("定时任务示例 %s\n", time.Now().Format(time.TimeOnly))
 	})
 
 }
