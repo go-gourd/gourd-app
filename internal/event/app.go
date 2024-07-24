@@ -1,6 +1,7 @@
 package event
 
 import (
+    "github.com/go-gourd/gourd"
     "github.com/go-gourd/gourd/event"
     "gourd/internal/cmd"
     "gourd/internal/cron"
@@ -9,7 +10,7 @@ import (
 )
 
 // Register 事件注册
-func Register() {
+func Register(app *gourd.App) {
 
     // Boot事件(应用) -初始化应用时执行
     event.Listen("app.boot", func(params any) {
