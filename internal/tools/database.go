@@ -3,7 +3,6 @@ package tools
 import (
     "errors"
     "fmt"
-    "github.com/go-gourd/database"
     "gorm.io/driver/mysql"
     "gorm.io/gorm"
     "gorm.io/gorm/logger"
@@ -21,7 +20,7 @@ func (w customLogWriter) Printf(format string, args ...any) {
 }
 
 // 初始化logger
-func initDbLogger(dbConfig *database.Config) logger.Interface {
+func initDbLogger(dbConfig *config.DbConfig) logger.Interface {
     return logger.New(
         customLogWriter{},
         logger.Config{
