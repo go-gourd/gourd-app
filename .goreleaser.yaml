@@ -37,3 +37,9 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
+    files:
+      # include all files in the root of the project
+      - README.md
+      - LICENSE
+      - config/*
+      - web/*

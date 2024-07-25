@@ -42,6 +42,11 @@ go mod tidy
 go run main.go
 ```
 
+使用goreleaser编译打包
+```bash
+goreleaser release --snapshot --clean
+```
+
 运行成功，使用浏览器访问`http://localhsot:8888/`
 
 ## 参考文档
