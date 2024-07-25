@@ -52,9 +52,7 @@ func Register() {
 	})
 
 	// 注册api相关路由
-	apiGroup := chi.NewRouter().
-		Group(apiRoute.RegisterRoute)
-
-	r.Mount("/api", apiGroup)
+	r.Mount("/api", chi.NewRouter().
+		Group(apiRoute.RegisterRoute))
 
 }

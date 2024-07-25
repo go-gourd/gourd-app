@@ -1,11 +1,10 @@
 package controller
 
 import (
-	"fmt"
-	"gorm.io/gen/field"
 	"gourd/internal/app"
 	"gourd/internal/orm/model"
 	"gourd/internal/orm/query"
+	"gourd/internal/repositories/user"
 	"net/http"
 )
 
@@ -15,35 +14,51 @@ type UserController struct {
 }
 
 // Info 获取用户信息
-func (ctl *UserController) Info(w http.ResponseWriter, _ *http.Request) {
+func (ctl *UserController) Info(w http.ResponseWriter, r *http.Request) {
 
-	// 需要查询的字段
-	fields := []field.Expr{
-		query.User.ID,
-		query.User.UserName,
+	repository := user.Repository{
+		Ctx: r.Context(),
 	}
 
-	user, _ := query.User.
-		Where(query.User.ID.Eq(2)).
-		Select(fields...).
+	qu := query.User
+
+	userData, _ := repository.Query().
+		Where(
+			qu.ID.Eq(1),
+			qu.CreateTime.Eq(0),
+		).
+		Select(
+			qu.ID,
+			qu.UserName,
+		).
 		First()
 
 	// 响应结果
-	_ = ctl.Success(w, "", user)
+	_ = ctl.Success(w, "", userData)
 }
 
 // Add 创建用户
-func (ctl *UserController) Add(w http.ResponseWriter, _ *http.Request) {
+func (ctl *UserController) Add(w http.ResponseWriter, r *http.Request) {
 
-	user := model.User{
+	repository := user.Repository{
+		Ctx: r.Context(),
+	}
+
+	_ = repository.Begin()
+
+	userData := model.User{
 		UserName: "go_create",
 	}
 
-	err := query.User.Create(&user)
+	err := repository.Create(&userData)
 	if err != nil {
-		fmt.Println("添加失败：" + err.Error())
+		_ = ctl.Fail(w, 1, "添加失败："+err.Error(), nil)
+		_ = repository.Rollback()
+		return
 	}
 
+	_ = repository.Commit()
+
 	// 响应结果
-	_ = ctl.Success(w, "", user)
+	_ = ctl.Success(w, "", userData)
 }
