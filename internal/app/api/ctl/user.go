@@ -20,7 +20,7 @@ func (ctl *UserController) Info(w http.ResponseWriter, _ *http.Request) {
 	// 需要查询的字段
 	fields := []field.Expr{
 		query.User.ID,
-		query.User.Username,
+		query.User.UserName,
 	}
 
 	user, _ := query.User.
@@ -36,7 +36,7 @@ func (ctl *UserController) Info(w http.ResponseWriter, _ *http.Request) {
 func (ctl *UserController) Add(w http.ResponseWriter, _ *http.Request) {
 
 	user := model.User{
-		Username: "go_create",
+		UserName: "go_create",
 	}
 
 	err := query.User.Create(&user)
