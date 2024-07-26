@@ -1,7 +1,7 @@
 package event
 
 import (
-	"github.com/go-gourd/gourd"
+	"context"
 	"github.com/go-gourd/gourd/event"
 	"gourd/internal/cmd"
 	"gourd/internal/cron"
@@ -10,10 +10,10 @@ import (
 )
 
 // Register 事件注册
-func Register(app *gourd.App) {
+func Register(ctx context.Context) {
 
 	// Boot事件(应用) -初始化应用时执行
-	event.Listen("app.boot", func(params any) {
+	event.Listen("app.boot", func(context.Context) {
 		slog.Debug("boot event.")
 
 		// TODO: 连接数据库
@@ -27,7 +27,7 @@ func Register(app *gourd.App) {
 	})
 
 	// Init事件(应用) -初始化完成执行
-	event.Listen("app.init", func(params any) {
+	event.Listen("app.init", func(context.Context) {
 		slog.Debug("init event.")
 
 		// 注册定时任务
@@ -38,7 +38,7 @@ func Register(app *gourd.App) {
 	})
 
 	// Start事件(应用) -启动后执行
-	event.Listen("app.start", func(params any) {
+	event.Listen("app.start", func(context.Context) {
 		slog.Debug("start event.")
 
 		// 启动Http服务
@@ -46,7 +46,7 @@ func Register(app *gourd.App) {
 	})
 
 	// Stop事件(应用) -终止时执行
-	event.Listen("app.stop", func(ctx any) {
+	event.Listen("app.stop", func(context.Context) {
 		slog.Debug("stop event.")
 	})
 

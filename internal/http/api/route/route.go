@@ -2,7 +2,7 @@ package route
 
 import (
 	"github.com/go-chi/chi/v5"
-	apiCtls "gourd/internal/app/api/ctl"
+	apiCtls "gourd/internal/http/api/ctl"
 )
 
 // RegisterRoute 注册路由组

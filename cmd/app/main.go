@@ -8,10 +8,10 @@ import (
 func main() {
 
 	// 创建一个应用实例
-	app := gourd.App{}
-
-	// 注册事件
-	event.Register(&app)
+	app := gourd.App{
+		// 应用事件初始化入口
+		EventHandler: event.Register,
+	}
 
 	// 执行初始化
 	app.Init()

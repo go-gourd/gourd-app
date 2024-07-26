@@ -14,7 +14,7 @@ type TestsController struct {
 // Test 测试
 func (ctl *TestsController) Test(w http.ResponseWriter, _ *http.Request) {
 
-	event.Trigger("test", "test value")
+	event.Trigger("test", nil)
 
 	// 响应结果
 	_ = ctl.Success(w, "", nil)

@@ -6,7 +6,7 @@ import (
 )
 
 // 默认配置文件目录
-const defaultPath = "./config"
+const defaultPath = "./configs"
 
 // 配置文件目录
 var configDir = defaultPath
