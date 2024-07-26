@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/go-chi/chi/v5"
-	apiRoute "gourd/internal/app/api/route"
 	"gourd/internal/config"
+	apiRoute "gourd/internal/http/api/route"
 	"net/http"
 	"os"
 )

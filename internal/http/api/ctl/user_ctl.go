@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"gourd/internal/app"
+	"gourd/internal/http/api/common"
 	"gourd/internal/orm/model"
 	"gourd/internal/orm/query"
 	"gourd/internal/repositories/user"
@@ -10,7 +10,7 @@ import (
 
 // UserController 用户控制器
 type UserController struct {
-	app.BaseController //继承基础控制器
+	common.BaseController //继承基础控制器
 }
 
 // Info 获取用户信息
