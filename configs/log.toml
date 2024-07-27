@@ -8,7 +8,7 @@ encoding = "json"
 log_file = "logs/app.log"
 
 # 日志文件最大大小，单位为 MB
-max_size = 1
+max_size = 10
 
 # 是否开启在控制台输出
-console = true
+console = false

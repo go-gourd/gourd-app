@@ -1,7 +1,5 @@
 .idea
 go.sum
-/runtime
-# 忽略win可执行文件
 *.exe
-
+logs/
 dist/

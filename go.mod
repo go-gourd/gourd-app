@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/go-chi/chi/v5 v5.1.0
-	github.com/go-gourd/gourd v1.2.1
+	github.com/go-gourd/gourd v1.2.2
 	github.com/pelletier/go-toml/v2 v2.2.2
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gorm.io/driver/mysql v1.5.7
