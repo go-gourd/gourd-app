@@ -6,6 +6,7 @@ import (
 	"gourd/internal/cmd"
 	"gourd/internal/cron"
 	"gourd/internal/http/router"
+	"gourd/internal/util"
 	"log/slog"
 )
 
@@ -16,8 +17,9 @@ func Register(ctx context.Context) {
 	event.Listen("app.boot", func(context.Context) {
 		slog.Debug("boot event.")
 
-		// TODO: 连接数据库
-		//err := tools.InitDatabase()
+		util.InitLog()
+
+		//err := util.InitDatabase()
 		//if err != nil {
 		//	panic(err.Error())
 		//}

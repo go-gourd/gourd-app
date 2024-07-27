@@ -4,17 +4,14 @@ go 1.22
 
 require (
 	github.com/go-chi/chi/v5 v5.1.0
-	github.com/go-gourd/gourd v1.2.0
+	github.com/go-gourd/gourd v1.2.1
 	github.com/pelletier/go-toml/v2 v2.2.2
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gen v0.3.26
 	gorm.io/gorm v1.25.11
 	gorm.io/plugin/dbresolver v1.5.2
 	gorm.io/plugin/soft_delete v1.2.1
-)
-
-replace (
-	github.com/go-gourd/gourd => ../groud
 )
 
 require (
