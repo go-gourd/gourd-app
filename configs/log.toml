@@ -1,8 +1,8 @@
 # 日志记录级别 debug、info、warn、error
 level = "debug"
 
-# 输出格式 "json" 或者 "text"
-encoding = "json"
+# 输出格式 default、json、text
+encoding = "default"
 
 # 日志文件
 log_file = "logs/app.log"
@@ -11,4 +11,4 @@ log_file = "logs/app.log"
 max_size = 10
 
 # 是否开启在控制台输出
-console = false
+console = true

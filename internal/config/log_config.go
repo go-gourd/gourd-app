@@ -5,7 +5,7 @@ type LogConfig struct {
 	Level    string `toml:"level" json:"level"`       // 日志记录级别 debug、info、warn、error
 	LogFile  string `toml:"log_file" json:"log_file"` // 日志文件
 	Console  bool   `toml:"console" json:"console"`   // 是否开启控制台输出
-	Encoding string `toml:"encoding" json:"encoding"` // 输出格式 "json" 或者 "text"
+	Encoding string `toml:"encoding" json:"encoding"` // 输出格式 default、json、text
 	MaxSize  int    `toml:"max_size" json:"max_size"` // 单个日志文件最大大小，单位：M
 }
 
