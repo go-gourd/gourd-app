@@ -8,13 +8,13 @@ import (
 	"net/http"
 )
 
-// UserController 用户控制器
-type UserController struct {
-	common.BaseController //继承基础控制器
+// UserCtl 用户控制器
+type UserCtl struct {
+	common.BaseCtl //继承基础控制器
 }
 
 // Info 获取用户信息
-func (ctl *UserController) Info(w http.ResponseWriter, r *http.Request) {
+func (ctl *UserCtl) Info(w http.ResponseWriter, r *http.Request) {
 
 	repository := user.Repository{
 		Ctx: r.Context(),
@@ -38,7 +38,7 @@ func (ctl *UserController) Info(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add 创建用户
-func (ctl *UserController) Add(w http.ResponseWriter, r *http.Request) {
+func (ctl *UserCtl) Add(w http.ResponseWriter, r *http.Request) {
 
 	repository := user.Repository{
 		Ctx: r.Context(),

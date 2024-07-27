@@ -5,13 +5,13 @@ import (
 	"net/http"
 )
 
-// BaseController 基础控制器
+// BaseCtl 基础控制器
 // 所有控制器都应继承此控制器，可以在此控制器中定义公共方法
-type BaseController struct {
+type BaseCtl struct {
 }
 
 // Success 成功时响应
-func (*BaseController) Success(w http.ResponseWriter, message string, data any) (err error) {
+func (*BaseCtl) Success(w http.ResponseWriter, message string, data any) (err error) {
 	if message == "" {
 		message = "success"
 	}
@@ -27,7 +27,7 @@ func (*BaseController) Success(w http.ResponseWriter, message string, data any) 
 }
 
 // Fail 失败响应
-func (*BaseController) Fail(w http.ResponseWriter, code int, message string, data any) (err error) {
+func (*BaseCtl) Fail(w http.ResponseWriter, code int, message string, data any) (err error) {
 	if message == "" {
 		message = "fail"
 	}

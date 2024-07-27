@@ -6,15 +6,15 @@ import (
 	"net/http"
 )
 
-// TestsController 测试
-type TestsController struct {
-	common.BaseController //继承基础控制器
+// TestsCtl 测试
+type TestsCtl struct {
+	common.BaseCtl //继承基础控制器
 }
 
 // Test 测试
-func (ctl *TestsController) Test(w http.ResponseWriter, _ *http.Request) {
+func (ctl *TestsCtl) Test(w http.ResponseWriter, r *http.Request) {
 
-	event.Trigger("test", nil)
+	event.Trigger("test", r.Context())
 
 	// 响应结果
 	_ = ctl.Success(w, "", nil)
