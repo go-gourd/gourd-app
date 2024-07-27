@@ -21,6 +21,9 @@ builds:
       - amd64
 #      - arm
 #      - arm64
+    goarm:
+#      - 6
+      - 7
     ldflags: "-s -w"
 
 archives:
@@ -41,5 +44,5 @@ archives:
       # include all files in the root of the project
       - README.md
       - LICENSE
-      - config/*
+      - configs/*
       - web/*
