@@ -1,20 +1,14 @@
-# 日志记录级别 debug、info、warn、error、fatal
+# 日志记录级别 debug、info、warn、error
 level = "debug"
 
-# 输出格式 "json" 或者 "console"
+# 输出格式 "json" 或者 "text"
 encoding = "json"
 
 # 日志文件
-log_file = "./runtime/log/log.txt"
+log_file = "logs/app.log"
 
-# 错误日志文件 -默认不独立存放
-error_file = "./runtime/log/error.txt"
-
-# 归档方式 time、size
-division = "time"
-
-# 按时间分割日志的单位 year、month、day、hour、minute
-time_unit = "day"
+# 日志文件最大大小，单位为 MB
+max_size = 1
 
 # 是否开启在控制台输出
 console = true

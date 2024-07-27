@@ -13,16 +13,16 @@ import (
 )
 
 // 使用自定义logger接管gorm日志
-type customLogWriter struct{}
+type dbLogWriter struct{}
 
-func (w customLogWriter) Printf(format string, args ...any) {
+func (w dbLogWriter) Printf(format string, args ...any) {
 	slog.Warn(fmt.Sprintf(format, args...))
 }
 
 // 初始化logger
 func initDbLogger(dbConfig *config.DbConfig) logger.Interface {
 	return logger.New(
-		customLogWriter{},
+		dbLogWriter{},
 		logger.Config{
 			SlowThreshold:             time.Duration(dbConfig.SlowLogTime) * time.Millisecond, // 慢 SQL 阈值
 			LogLevel:                  logger.Error,                                           // 日志级别
