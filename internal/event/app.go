@@ -17,12 +17,15 @@ func Register(ctx context.Context) {
 	event.Listen("app.boot", func(context.Context) {
 		slog.Debug("boot event.")
 
-		util.InitLog()
+		err := util.InitLog()
+		if err != nil {
+			panic(err)
+		}
 
-		//err := util.InitDatabase()
-		//if err != nil {
-		//	panic(err.Error())
-		//}
+		err = util.InitDatabase()
+		if err != nil {
+			panic(err)
+		}
 
 		// 注册命令行
 		cmd.Register()

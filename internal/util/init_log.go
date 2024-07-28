@@ -10,21 +10,21 @@ import (
 	"time"
 )
 
-// CustomHandler 自定义日志处理器
-type CustomHandler struct {
+// DefaultHandler 自定义日志处理器
+type DefaultHandler struct {
 	Level  slog.Level
 	Writer io.Writer
 }
 
-func (CustomHandler) WithAttrs([]slog.Attr) slog.Handler { return nil }
+func (DefaultHandler) WithAttrs([]slog.Attr) slog.Handler { return nil }
 
-func (CustomHandler) WithGroup(string) slog.Handler { return nil }
+func (DefaultHandler) WithGroup(string) slog.Handler { return nil }
 
-func (h CustomHandler) Enabled(_ context.Context, l slog.Level) bool {
+func (h DefaultHandler) Enabled(_ context.Context, l slog.Level) bool {
 	return l >= h.Level
 }
 
-func (h CustomHandler) Handle(_ context.Context, r slog.Record) error {
+func (h DefaultHandler) Handle(_ context.Context, r slog.Record) error {
 
 	dt := time.Now().Format("2006-01-02 15:04:05")
 	msg := dt + " " + r.Level.String() + " " + r.Message
@@ -39,11 +39,11 @@ func (h CustomHandler) Handle(_ context.Context, r slog.Record) error {
 }
 
 // InitLog 初始化日志
-func InitLog() {
+func InitLog() error {
 
 	conf, err := config.GetLogConfig()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	// 日志文件输出
@@ -76,8 +76,8 @@ func InitLog() {
 		handler = slog.NewJSONHandler(logWriter, options)
 	} else if conf.Encoding == "text" {
 		handler = slog.NewTextHandler(logWriter, options)
-	} else if conf.Encoding == "default" {
-		handler = CustomHandler{
+	} else { // default
+		handler = DefaultHandler{
 			Level:  level.Level(),
 			Writer: logWriter,
 		}
@@ -85,4 +85,6 @@ func InitLog() {
 
 	logger := slog.New(handler)
 	slog.SetDefault(logger)
+
+	return nil
 }
