@@ -11,19 +11,15 @@ import (
 var router *chi.Mux
 
 func GetRouter() *chi.Mux {
-
 	if router != nil {
 		return router
 	}
-
 	router = chi.NewRouter()
-
 	return router
 }
 
 // Register 注册路由
 func Register() {
-
 	r := GetRouter()
 
 	// 主页

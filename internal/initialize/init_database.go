@@ -1,4 +1,4 @@
-package util
+package initialize
 
 import (
 	"errors"
@@ -19,32 +19,28 @@ func (w dbLogWriter) Printf(format string, args ...any) {
 	slog.Warn(fmt.Sprintf(format, args...))
 }
 
-// 初始化logger
-func initDbLogger(dbConfig *config.DbConfig) logger.Interface {
-	return logger.New(
-		dbLogWriter{},
-		logger.Config{
-			SlowThreshold:             time.Duration(dbConfig.SlowLogTime) * time.Millisecond, // 慢 SQL 阈值
-			LogLevel:                  logger.Error,                                           // 日志级别
-			IgnoreRecordNotFoundError: true,                                                   // 忽略记录未找到错误
-			Colorful:                  false,                                                  // 禁用彩色打印
-		},
-	)
-}
-
 // InitDatabase 初始化数据库连接
 func InitDatabase() error {
 
 	// 连接数据库
 	dbConf, err := config.GetDBConfig("mysql")
 	if err != nil {
-		return errors.New("mysql config is nil")
+		return errors.New("database.mysql config is nil")
 	}
 
 	// 连接数据库
 	dsn := dbConf.GenerateDsn()
 	gormConfig := &gorm.Config{
-		Logger: initDbLogger(dbConf),
+		// 替换默认日志
+		Logger: logger.New(
+			dbLogWriter{},
+			logger.Config{
+				SlowThreshold:             time.Duration(dbConf.SlowLogTime) * time.Millisecond, // 慢 SQL 阈值
+				LogLevel:                  logger.Warn,                                          // 日志级别
+				IgnoreRecordNotFoundError: true,                                                 // 忽略记录未找到错误
+				Colorful:                  true,                                                 // 禁用彩色打印
+			},
+		),
 	}
 	mysqlDb, err := gorm.Open(mysql.Open(dsn), gormConfig)
 	if err != nil {

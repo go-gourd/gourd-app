@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	ctx := context.WithValue(context.Background(), "app_name", "app")
+	ctx := context.WithValue(context.Background(), "cmd", "app")
 
 	// 创建一个应用实例
 	app := gourd.App{

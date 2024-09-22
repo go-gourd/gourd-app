@@ -1,12 +1,12 @@
-package cmd
+package initialize
 
 import (
 	"fmt"
 	"github.com/go-gourd/gourd/cmd"
 )
 
-// Register 注册命令入口
-func Register() {
+// InitCmd 初始化命令入口
+func InitCmd() {
 
 	//默认命令行操作
 	cmd.SetDefault(cmd.Commend{

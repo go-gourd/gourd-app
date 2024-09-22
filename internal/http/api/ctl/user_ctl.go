@@ -4,7 +4,6 @@ import (
 	"gourd/internal/http/api/common"
 	"gourd/internal/orm/model"
 	"gourd/internal/orm/query"
-	"gourd/internal/repositories/user"
 	"net/http"
 )
 
@@ -16,13 +15,9 @@ type UserCtl struct {
 // Info 获取用户信息
 func (ctl *UserCtl) Info(w http.ResponseWriter, r *http.Request) {
 
-	repository := user.Repository{
-		Ctx: r.Context(),
-	}
-
 	qu := query.User
 
-	userData, _ := repository.Query().
+	userData, _ := query.User.WithContext(r.Context()).
 		Where(
 			qu.ID.Eq(1),
 			qu.CreateTime.Eq(0),
@@ -39,25 +34,27 @@ func (ctl *UserCtl) Info(w http.ResponseWriter, r *http.Request) {
 
 // Add 创建用户
 func (ctl *UserCtl) Add(w http.ResponseWriter, r *http.Request) {
-
-	repository := user.Repository{
-		Ctx: r.Context(),
-	}
-
-	_ = repository.Begin()
+	tx := query.Q.Begin()
+	u := tx.User
 
 	userData := model.User{
 		UserName: "go_create",
 	}
 
-	err := repository.Create(&userData)
+	// 创建用户
+	err := u.Create(&userData)
 	if err != nil {
 		_ = ctl.Fail(w, 1, "添加失败："+err.Error(), nil)
-		_ = repository.Rollback()
+		_ = tx.Rollback()
 		return
 	}
 
-	_ = repository.Commit()
+	// 其他操作...
+
+	// 事务提交
+	if err = tx.Commit(); err != nil {
+		_ = ctl.Fail(w, 1, "添加失败："+err.Error(), nil)
+	}
 
 	// 响应结果
 	_ = ctl.Success(w, "", userData)
