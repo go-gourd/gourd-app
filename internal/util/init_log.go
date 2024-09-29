@@ -25,7 +25,6 @@ func (h DefaultHandler) Enabled(_ context.Context, l slog.Level) bool {
 }
 
 func (h DefaultHandler) Handle(_ context.Context, r slog.Record) error {
-
 	dt := time.Now().Format("2006-01-02 15:04:05")
 	msg := dt + " " + r.Level.String() + " " + r.Message
 
@@ -40,7 +39,6 @@ func (h DefaultHandler) Handle(_ context.Context, r slog.Record) error {
 
 // InitLog 初始化日志
 func InitLog() error {
-
 	conf, err := config.GetLogConfig()
 	if err != nil {
 		return err
@@ -62,8 +60,7 @@ func InitLog() error {
 
 	// 设置日志级别
 	level := slog.LevelVar{}
-	err = level.UnmarshalText([]byte(conf.Level))
-	if err != nil {
+	if err = level.UnmarshalText([]byte(conf.Level)); err != nil {
 		level.Set(slog.LevelInfo) // 默认日志级别为info
 	}
 

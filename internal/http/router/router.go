@@ -33,9 +33,9 @@ func Register() {
 
 	// 404响应
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-
 		// 若路由未定义，检测是否为静态资源
 		conf, err := config.GetHttpConfig()
+		// 若配置中有静态资源路径，尝试从该路径下查找资源
 		if err == nil && conf.Static != "" {
 			filepath := conf.Static + r.URL.Path
 			//判断文件是否存在

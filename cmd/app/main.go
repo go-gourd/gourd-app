@@ -13,7 +13,7 @@ func main() {
 	// 创建一个应用实例
 	app := gourd.App{
 		// 应用事件初始化入口
-		EventHandler: event.Register,
+		EventHandler: event.RegisterAppEvent,
 		Context:      ctx,
 	}
 

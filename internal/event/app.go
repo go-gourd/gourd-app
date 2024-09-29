@@ -10,8 +10,8 @@ import (
 	"log/slog"
 )
 
-// Register 事件注册
-func Register(ctx context.Context) {
+// RegisterAppEvent 事件注册
+func RegisterAppEvent(_ context.Context) {
 
 	// Boot事件(应用) -初始化应用时执行
 	event.Listen("app.boot", func(context.Context) {
