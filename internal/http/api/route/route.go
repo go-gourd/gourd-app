@@ -7,9 +7,12 @@ import (
 
 // RegisterRoute 注册路由组
 func RegisterRoute(r chi.Router) {
-	userCtl := apiCtls.UserCtl{}
-	r.HandleFunc("/user/info", userCtl.Info)
-	r.HandleFunc("/user/add", userCtl.Add)
+
+	r.Route("/user", func(r chi.Router) {
+		c := apiCtls.UserCtl{}
+		r.HandleFunc("/list", c.Info)
+		r.HandleFunc("/add", c.Add)
+	})
 
 	testsCtl := apiCtls.TestsCtl{}
 	r.HandleFunc("/tests/test", testsCtl.Test)
