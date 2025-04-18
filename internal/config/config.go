@@ -9,15 +9,23 @@ import (
 const defaultPath = "./configs"
 
 // 配置文件目录
-var configDir = defaultPath
+var configDir = ""
 
 // SetConfigPath 设置文件目录
-func SetConfigPath(path string) {
+func SetConfigPath(path string) error {
     configDir = path
+    if _, err := os.Stat(configDir); os.IsNotExist(err) {
+        return os.MkdirAll(configDir, os.ModePerm)
+    }
+    return nil
 }
 
 // Unmarshal 读取自定义配置文件
 func Unmarshal(name string, v any) error {
+
+    if configDir == "" {
+        return SetConfigPath(defaultPath)
+    }
 
     var file = configDir + "/" + name + ".toml"
     tomlData, err := os.ReadFile(file)
@@ -34,6 +42,10 @@ func Unmarshal(name string, v any) error {
 
 // Marshal 写入自定义配置文件
 func Marshal(name string, v any) error {
+
+    if configDir == "" {
+        return SetConfigPath(defaultPath)
+    }
 
     var file = configDir + "/" + name + ".toml"
     tomlData, err := toml.Marshal(v)
