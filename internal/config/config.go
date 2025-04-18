@@ -20,6 +20,21 @@ func SetConfigPath(path string) error {
     return nil
 }
 
+// Exists 判断配置是否存在
+func Exists(name string) bool {
+
+    if configDir == "" {
+        err := SetConfigPath(defaultPath)
+        if err != nil {
+            return false
+        }
+    }
+
+    var file = configDir + "/" + name + ".toml"
+    _, err := os.Stat(file)
+    return !os.IsNotExist(err)
+}
+
 // Unmarshal 读取自定义配置文件
 func Unmarshal(name string, v any) error {
 
