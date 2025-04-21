@@ -1,7 +1,7 @@
 package config
 
 import (
-    "app/internal/config"
+    "gourd/internal/config"
     "testing"
 )
 
