@@ -11,8 +11,8 @@ import (
 // InitHttpServer 启动http服务
 func InitHttpServer() {
 
-	// 注册HTTP路由
-	router.Register()
+	// 初始化HTTP路由
+	router.InitRouter()
 
 	// 获取http配置文件
 	conf, _ := config.GetHttpConfig()

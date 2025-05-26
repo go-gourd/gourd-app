@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gourd/internal/config"
+	"gourd/internal/global"
 	"gourd/internal/orm/query"
 	"log/slog"
 	"time"
@@ -16,39 +17,40 @@ import (
 type dbLogWriter struct{}
 
 func (w dbLogWriter) Printf(format string, args ...any) {
-	slog.Warn(fmt.Sprintf(format, args...))
+    slog.Warn(fmt.Sprintf(format, args...))
 }
 
 // InitDatabase 初始化数据库连接
 func InitDatabase() error {
 
-	// 连接数据库
-	dbConf, err := config.GetDBConfig("mysql")
-	if err != nil {
-		return errors.New("database.mysql config is nil")
-	}
+    // 连接数据库
+    dbConf, err := config.GetDBConfig("mysql")
+    if err != nil {
+        return errors.New("mysql config is nil")
+    }
 
-	// 连接数据库
-	dsn := dbConf.GenerateDsn()
-	gormConfig := &gorm.Config{
-		// 替换默认日志
-		Logger: logger.New(
-			dbLogWriter{},
-			logger.Config{
-				SlowThreshold:             time.Duration(dbConf.SlowLogTime) * time.Millisecond, // 慢 SQL 阈值
-				LogLevel:                  logger.Warn,                                          // 日志级别
-				IgnoreRecordNotFoundError: true,                                                 // 忽略记录未找到错误
-				Colorful:                  true,                                                 // 禁用彩色打印
-			},
-		),
-	}
-	mysqlDb, err := gorm.Open(mysql.Open(dsn), gormConfig)
-	if err != nil {
-		return err
-	}
+    // 连接数据库
+    gormConfig := &gorm.Config{
+        Logger: logger.New(
+            dbLogWriter{},
+            logger.Config{
+                SlowThreshold:             time.Duration(dbConf.SlowLogTime) * time.Millisecond, // 慢 SQL 阈值
+                LogLevel:                  logger.Warn,                                          // 日志级别
+                IgnoreRecordNotFoundError: true,                                                 // 忽略记录未找到错误
+                Colorful:                  true,                                                 // 禁用彩色打印
+            },
+        ),
+    }
+    mysqlDb, err := gorm.Open(mysql.Open(dbConf.GenerateDsn()), gormConfig)
+    if err != nil {
+        return err
+    }
 
-	// 设置默认查询器
-	query.SetDefault(mysqlDb)
+    // 设置全局数据库连接
+    global.SetDb("mysql", mysqlDb)
 
-	return nil
+    // 设置默认查询器
+    query.SetDefault(mysqlDb)
+
+    return nil
 }
