@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"gourd/internal/http/api/common"
-	"gourd/internal/orm/model"
-	"gourd/internal/orm/query"
+	"app/internal/http/api/common"
+	"app/internal/orm/model"
+	"app/internal/orm/query"
 	"net/http"
 )
 

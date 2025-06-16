@@ -1,9 +1,9 @@
 package initialize
 
 import (
+	"app/internal/config"
+	"app/internal/http/router"
 	"fmt"
-	"gourd/internal/config"
-	"gourd/internal/http/router"
 	"log/slog"
 	"net/http"
 )

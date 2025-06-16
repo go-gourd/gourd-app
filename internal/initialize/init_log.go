@@ -1,68 +1,68 @@
 package initialize
 
 import (
-    "context"
-    "gopkg.in/natefinch/lumberjack.v2"
-    "gourd/internal/config"
-    "io"
-    "log/slog"
-    "os"
-    "time"
+	"app/internal/config"
+	"context"
+	"gopkg.in/natefinch/lumberjack.v2"
+	"io"
+	"log/slog"
+	"os"
+	"time"
 )
 
 // InitLog 初始化日志
 func InitLog() error {
-    conf, err := config.GetLogConfig()
-    if err != nil {
-        return err
-    }
+	conf, err := config.GetLogConfig()
+	if err != nil {
+		return err
+	}
 
-    // 日志文件输出
-    output := &lumberjack.Logger{
-        Filename:  conf.LogFile,
-        MaxSize:   conf.MaxSize, // megabytes
-        LocalTime: true,
-    }
+	// 日志文件输出
+	output := &lumberjack.Logger{
+		Filename:  conf.LogFile,
+		MaxSize:   conf.MaxSize, // megabytes
+		LocalTime: true,
+	}
 
-    writers := []io.Writer{output}
-    if conf.Console {
-        // 日志是否输出到控制台
-        writers = append(writers, os.Stdout)
-    }
-    logWriter := io.MultiWriter(writers...)
+	writers := []io.Writer{output}
+	if conf.Console {
+		// 日志是否输出到控制台
+		writers = append(writers, os.Stdout)
+	}
+	logWriter := io.MultiWriter(writers...)
 
-    // 设置日志级别
-    level := slog.LevelVar{}
-    if err = level.UnmarshalText([]byte(conf.Level)); err != nil {
-        level.Set(slog.LevelInfo) // 默认日志级别为info
-    }
+	// 设置日志级别
+	level := slog.LevelVar{}
+	if err = level.UnmarshalText([]byte(conf.Level)); err != nil {
+		level.Set(slog.LevelInfo) // 默认日志级别为info
+	}
 
-    options := &slog.HandlerOptions{
-        Level: level.Level(), // 设置日志级别
-    }
+	options := &slog.HandlerOptions{
+		Level: level.Level(), // 设置日志级别
+	}
 
-    var handler slog.Handler
-    if conf.Encoding == "json" {
-        handler = slog.NewJSONHandler(logWriter, options)
-    } else if conf.Encoding == "text" {
-        handler = slog.NewTextHandler(logWriter, options)
-    } else { // default
-        handler = DefaultHandler{
-            Level:  level.Level(),
-            Writer: logWriter,
-        }
-    }
+	var handler slog.Handler
+	if conf.Encoding == "json" {
+		handler = slog.NewJSONHandler(logWriter, options)
+	} else if conf.Encoding == "text" {
+		handler = slog.NewTextHandler(logWriter, options)
+	} else { // default
+		handler = DefaultHandler{
+			Level:  level.Level(),
+			Writer: logWriter,
+		}
+	}
 
-    logger := slog.New(handler)
-    slog.SetDefault(logger)
+	logger := slog.New(handler)
+	slog.SetDefault(logger)
 
-    return nil
+	return nil
 }
 
 // DefaultHandler 自定义日志处理器
 type DefaultHandler struct {
-    Level  slog.Level
-    Writer io.Writer
+	Level  slog.Level
+	Writer io.Writer
 }
 
 func (DefaultHandler) WithAttrs([]slog.Attr) slog.Handler { return nil }
@@ -70,18 +70,18 @@ func (DefaultHandler) WithAttrs([]slog.Attr) slog.Handler { return nil }
 func (DefaultHandler) WithGroup(string) slog.Handler { return nil }
 
 func (h DefaultHandler) Enabled(_ context.Context, l slog.Level) bool {
-    return l >= h.Level
+	return l >= h.Level
 }
 
 func (h DefaultHandler) Handle(_ context.Context, r slog.Record) error {
-    dt := time.Now().Format("2006-01-02 15:04:05")
-    msg := dt + " " + r.Level.String() + " " + r.Message
+	dt := time.Now().Format("2006-01-02 15:04:05")
+	msg := dt + " " + r.Level.String() + " " + r.Message
 
-    // 输出日志属性
-    r.Attrs(func(a slog.Attr) bool {
-        msg += " " + a.Key + "=" + a.Value.String()
-        return true
-    })
-    _, err := h.Writer.Write([]byte(msg + "\n"))
-    return err
+	// 输出日志属性
+	r.Attrs(func(a slog.Attr) bool {
+		msg += " " + a.Key + "=" + a.Value.String()
+		return true
+	})
+	_, err := h.Writer.Write([]byte(msg + "\n"))
+	return err
 }

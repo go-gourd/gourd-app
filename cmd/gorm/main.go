@@ -1,13 +1,13 @@
 package main
 
 import (
+	"app/cmd/gorm/gen_tool"
+	"app/cmd/gorm/methods"
+	"app/cmd/gorm/tags"
+	"app/internal/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
-	"gourd/cmd/gorm/gen_tool"
-	"gourd/cmd/gorm/methods"
-	"gourd/cmd/gorm/tags"
-	"gourd/internal/config"
 )
 
 // main 模型代码生成
