@@ -1,20 +1,20 @@
 package controller
 
 import (
-	"gourd/internal/http/api/common"
-	"gourd/internal/orm/model"
-	"gourd/internal/orm/query"
-	"gourd/internal/repositories/user"
+	"app/internal/http/api/controller/common"
+	"app/internal/orm/model"
+	"app/internal/orm/query"
+	"app/internal/repositories/user"
 	"net/http"
 )
 
-// UserCtl 用户控制器
-type UserCtl struct {
-	common.BaseCtl //继承基础控制器
+// User 用户控制器
+type User struct {
+	common.Base //继承基础控制器
 }
 
 // Info 获取用户信息
-func (ctl *UserCtl) Info(w http.ResponseWriter, r *http.Request) {
+func (ctl *User) Info(w http.ResponseWriter, r *http.Request) {
 
 	repository := user.Repository{
 		Ctx: r.Context(),
@@ -38,7 +38,7 @@ func (ctl *UserCtl) Info(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add 创建用户
-func (ctl *UserCtl) Add(w http.ResponseWriter, r *http.Request) {
+func (ctl *User) Add(w http.ResponseWriter, r *http.Request) {
 
 	repository := user.Repository{
 		Ctx: r.Context(),

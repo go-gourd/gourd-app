@@ -1,9 +1,9 @@
 package main
 
 import (
+	"app/internal/event"
 	"context"
 	"github.com/go-gourd/gourd"
-	"gourd/internal/event"
 )
 
 func main() {

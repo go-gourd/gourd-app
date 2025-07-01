@@ -1,9 +1,9 @@
 package base
 
 import (
+	"app/internal/orm/query"
 	"context"
 	"errors"
-	"gourd/internal/orm/query"
 )
 
 // Repository is the base repository struct for all repositories.

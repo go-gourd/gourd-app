@@ -1,10 +1,10 @@
 package user
 
 import (
+	"app/internal/orm/model"
+	"app/internal/orm/query"
+	"app/internal/repositories/base"
 	"context"
-	"gourd/internal/orm/model"
-	"gourd/internal/orm/query"
-	"gourd/internal/repositories/base"
 )
 
 type Repository struct {
