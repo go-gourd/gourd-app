@@ -53,8 +53,7 @@ func InitLog() error {
 		}
 	}
 
-	logger := slog.New(handler)
-	slog.SetDefault(logger)
+	slog.SetDefault(slog.New(handler))
 
 	return nil
 }
@@ -75,13 +74,13 @@ func (h DefaultHandler) Enabled(_ context.Context, l slog.Level) bool {
 
 func (h DefaultHandler) Handle(_ context.Context, r slog.Record) error {
 	dt := time.Now().Format("2006-01-02 15:04:05")
-	msg := dt + " " + r.Level.String() + " " + r.Message
+	msg := r.Message
 
 	// 输出日志属性
 	r.Attrs(func(a slog.Attr) bool {
 		msg += " " + a.Key + "=" + a.Value.String()
 		return true
 	})
-	_, err := h.Writer.Write([]byte(msg + "\n"))
+	_, err := h.Writer.Write([]byte(dt + " " + r.Level.String() + " " + msg + "\n"))
 	return err
 }

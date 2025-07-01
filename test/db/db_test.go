@@ -37,6 +37,6 @@ func TestDB(t *testing.T) {
 
 	t.Logf("User %s", jsonStr)
 
-	t.Log(global.GetDb("mysql"))
+	t.Log(global.GetDb("default"))
 
 }

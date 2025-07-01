@@ -2,7 +2,7 @@ package router
 
 import (
 	"app/internal/config"
-	apiRoute "app/internal/http/api/route"
+	apiRoute "app/internal/http/api/router"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 	"os"
@@ -49,6 +49,6 @@ func InitRouter() {
 	})
 	// 注册api相关路由
 	r.Mount("/api", chi.NewRouter().
-		Group(apiRoute.RegisterRoute))
+		Group(apiRoute.RegisterRouter))
 
 }

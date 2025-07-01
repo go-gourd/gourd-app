@@ -1,16 +1,15 @@
 package main
 
 import (
-	"app/cmd/gorm/gen_tool"
 	"app/cmd/gorm/methods"
 	"app/cmd/gorm/tags"
 	"app/internal/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
+	"gorm.io/gen/field"
 	"gorm.io/gorm"
 )
 
-// main 模型代码生成
 func main() {
 
 	// 初始化数据库
@@ -29,8 +28,6 @@ func main() {
 		// 自动时间戳字段属性
 		gen.FieldGORMTag("create_time", tags.CreateField),
 		gen.FieldGORMTag("update_time", tags.UpdateField),
-		gen.FieldType("create_time", "uint"),
-		gen.FieldType("update_time", "uint"),
 
 		// 软删除字段属性
 		gen.FieldType("delete_time", "soft_delete.DeletedAt"),
@@ -40,17 +37,27 @@ func main() {
 	}
 
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "./internal/orm/query",
-		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
+		OutPath:      "./internal/orm/query",
+		ModelPkgPath: "model",
+		Mode:         gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
 	})
 
 	g.UseDB(mysqlDb)
 
-	// 使用工具生成模型
-	db := gen_tool.Database{
-		Generator: g,
-		ComOpts:   &comOpts,
-	}
+	// 生成所有表
+	//g.ApplyBasic(g.GenerateAllTable(comOpts...)...)
 
-	db.GenTable()
+	var allTables []any
+
+	// 生成指定表
+	g.ApplyBasic(allTables...)
+
+	// User
+	appModel := g.GenerateModel("user", comOpts...)
+	allTables = append(allTables, appModel)
+
+	// 生成指定表
+	g.ApplyBasic(allTables...)
+
+	g.Execute()
 }

@@ -11,9 +11,6 @@ import (
 // InitHttpServer 启动http服务
 func InitHttpServer() {
 
-	// 初始化HTTP路由
-	router.InitRouter()
-
 	// 获取http配置文件
 	conf, _ := config.GetHttpConfig()
 
@@ -21,6 +18,9 @@ func InitHttpServer() {
 	if !conf.Enable {
 		return
 	}
+
+	// 初始化HTTP路由
+	router.InitRouter()
 
 	addr := fmt.Sprintf("%s:%d", conf.Host, conf.Port)
 

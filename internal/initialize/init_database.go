@@ -26,7 +26,7 @@ func InitDatabase() error {
 	// 连接数据库
 	dbConf, err := config.GetDBConfig("mysql")
 	if err != nil {
-		return errors.New("mysql config is nil")
+		return errors.New("database.mysql config is nil")
 	}
 
 	// 连接数据库
@@ -47,7 +47,7 @@ func InitDatabase() error {
 	}
 
 	// 设置全局数据库连接
-	global.SetDb("mysql", mysqlDb)
+	global.SetDb("default", mysqlDb)
 
 	// 设置默认查询器
 	query.SetDefault(mysqlDb)
