@@ -1,8 +1,9 @@
 package config
 
 import (
-	"github.com/pelletier/go-toml/v2"
 	"os"
+
+	"github.com/pelletier/go-toml/v2"
 )
 
 // 默认配置文件目录

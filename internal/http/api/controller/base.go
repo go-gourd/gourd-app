@@ -1,4 +1,4 @@
-package common
+package controller
 
 import (
 	"encoding/json"
@@ -26,6 +26,7 @@ func (*Base) Success(w http.ResponseWriter, message string, data any) (err error
 		Message: message,
 	}
 
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	str, _ := json.Marshal(res)
 	_, err = w.Write(str)
 	return
@@ -41,6 +42,8 @@ func (*Base) Fail(w http.ResponseWriter, code int, message string, data any) (er
 		Data:    data,
 		Message: message,
 	}
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	str, _ := json.Marshal(res)
 	_, err = w.Write(str)
 	return

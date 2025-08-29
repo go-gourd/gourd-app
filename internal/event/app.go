@@ -3,12 +3,13 @@ package event
 import (
 	"app/internal/initialize"
 	"context"
-	"github.com/go-gourd/gourd/event"
 	"log/slog"
+
+	"github.com/go-gourd/gourd/event"
 )
 
-// RegisterAppEvent 事件注册
-func RegisterAppEvent(_ context.Context) {
+// AppEvent 事件注册
+func AppEvent(_ context.Context) {
 
 	// Boot事件(应用) -初始化应用时执行
 	event.Listen("app.boot", func(ctx context.Context) {
@@ -42,6 +43,7 @@ func RegisterAppEvent(_ context.Context) {
 
 		// 初始化Http服务
 		initialize.InitHttpServer()
+
 	})
 
 	// Stop事件(应用) -终止时执行

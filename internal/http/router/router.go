@@ -2,10 +2,11 @@ package router
 
 import (
 	"app/internal/config"
-	apiRoute "app/internal/http/api/router"
-	"github.com/go-chi/chi/v5"
+	apiRouter "app/internal/http/api/router"
 	"net/http"
 	"os"
+
+	"github.com/go-chi/chi/v5"
 )
 
 var router *chi.Mux
@@ -47,8 +48,10 @@ func InitRouter() {
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte("hello gourd!"))
 	})
+
 	// 注册api相关路由
-	r.Mount("/api", chi.NewRouter().
-		Group(apiRoute.RegisterRouter))
+	apiSubRouter := chi.NewRouter()
+	apiRouter.Router(apiSubRouter)
+	r.Mount("/api", apiSubRouter)
 
 }

@@ -1,5 +1,5 @@
 
-[mysql]
+[main]
 #数据库类型
 type = "mysql"
 #数据库地址
@@ -12,5 +12,7 @@ user = "user"
 pass = "pass"
 #数据库名
 database = "database"
+#连接参数
+param = ""
 # 慢日志阈值（毫秒）0为不开启
 slow_log_time = 500

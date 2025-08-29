@@ -3,6 +3,7 @@ package main
 import (
 	"app/internal/event"
 	"context"
+
 	"github.com/go-gourd/gourd"
 )
 
@@ -13,7 +14,7 @@ func main() {
 	// 创建一个应用实例
 	app := gourd.App{
 		// 应用事件初始化入口
-		EventHandler: event.RegisterAppEvent,
+		EventHandler: event.AppEvent,
 		Context:      ctx,
 	}
 

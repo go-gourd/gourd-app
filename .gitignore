@@ -1,5 +1,5 @@
 .idea
-go.sum
+/dist
+/logs/
+/go.sum
 *.exe
-logs/
-dist/

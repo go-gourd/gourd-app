@@ -3,7 +3,6 @@ package config
 import (
 	"errors"
 	"fmt"
-	"net/url"
 )
 
 // DbConfig 适用于单个连接的配置
@@ -31,22 +30,19 @@ func (conf DbConfig) GenerateDsn() string {
 			dsnParam = "?" + conf.Param
 		}
 		dsnF := "%s:%s@(%s:%d)/%s%s"
-		dsn = fmt.Sprintf(dsnF, conf.User, url.QueryEscape(conf.Pass), conf.Host, conf.Port, conf.Database, dsnParam)
+		dsn = fmt.Sprintf(dsnF, conf.User, conf.Pass, conf.Host, conf.Port, conf.Database, dsnParam)
 	} else if conf.Type == "sqlserver" {
 		if conf.Param != "" {
 			dsnParam = "&" + conf.Param
 		}
 		dsnF := "sqlserver://%s:%s@%s:%d?database=%s%s"
-		dsn = fmt.Sprintf(dsnF, conf.User, url.QueryEscape(conf.Pass), conf.Host, conf.Port, conf.Database, dsnParam)
+		dsn = fmt.Sprintf(dsnF, conf.User, conf.Pass, conf.Host, conf.Port, conf.Database, dsnParam)
 	} else if conf.Type == "postgres" {
-		if conf.Param != "" {
-			dsnParam = "?" + conf.Param
-		}
-		dsnF := "host=%s user=%s password=%s dbname=%s port=%d %s"
-		dsn = fmt.Sprintf(dsnF, conf.Host, conf.User, url.QueryEscape(conf.Pass), conf.Database, conf.Port, dsnParam)
+		dsnF := "host=%s user=%s password=%s dbname=%s port=%d %s " + conf.Param
+		dsn = fmt.Sprintf(dsnF, conf.Host, conf.User, conf.Pass, conf.Database, conf.Port, dsnParam)
 	} else if conf.Type == "oracle" {
 		dsnF := "%s/%s@%s:%d/%s"
-		dsn = fmt.Sprintf(dsnF, conf.User, url.QueryEscape(conf.Pass), conf.Host, conf.Port, conf.Database)
+		dsn = fmt.Sprintf(dsnF, conf.User, conf.Pass, conf.Host, conf.Port, conf.Database)
 	}
 
 	return dsn

@@ -2,7 +2,6 @@ package db
 
 import (
 	"app/internal/config"
-	"app/internal/global"
 	"app/internal/initialize"
 	"app/internal/orm/query"
 	"encoding/json"
@@ -36,7 +35,5 @@ func TestDB(t *testing.T) {
 	}
 
 	t.Logf("User %s", jsonStr)
-
-	t.Log(global.GetDb("default"))
 
 }

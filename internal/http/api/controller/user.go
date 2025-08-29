@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"app/internal/http/api/controller/common"
 	"app/internal/orm/model"
 	"app/internal/orm/query"
 	"net/http"
@@ -9,7 +8,7 @@ import (
 
 // User 用户控制器
 type User struct {
-	common.Base //继承基础控制器
+	Base //继承基础控制器
 }
 
 // Info 获取用户信息

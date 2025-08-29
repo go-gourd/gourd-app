@@ -2,6 +2,7 @@ package gen_tool
 
 import (
 	"fmt"
+
 	"gorm.io/gen"
 	"gorm.io/gen/field"
 	"gorm.io/gorm/schema"

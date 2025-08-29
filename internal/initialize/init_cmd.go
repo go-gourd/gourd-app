@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"fmt"
+
 	"github.com/go-gourd/gourd/cmd"
 )
 

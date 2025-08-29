@@ -6,6 +6,7 @@ package query
 
 import (
 	"context"
+	"database/sql"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -27,12 +28,14 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 
 	tableName := _user.userDo.TableName()
 	_user.ALL = field.NewAsterisk(tableName)
-	_user.ID = field.NewInt32(tableName, "id")
-	_user.UserName = field.NewString(tableName, "user_name")
-	_user.Mobile = field.NewString(tableName, "mobile")
+	_user.ID = field.NewInt64(tableName, "id")
+	_user.Nickname = field.NewString(tableName, "nickname")
+	_user.Username = field.NewString(tableName, "username")
+	_user.Avatar = field.NewString(tableName, "avatar")
 	_user.Password = field.NewString(tableName, "password")
-	_user.CreateTime = field.NewUint(tableName, "create_time")
-	_user.UpdateTime = field.NewUint(tableName, "update_time")
+	_user.CreateTime = field.NewInt64(tableName, "create_time")
+	_user.LoginTime = field.NewInt32(tableName, "login_time")
+	_user.Status = field.NewInt32(tableName, "status")
 	_user.DeleteTime = field.NewField(tableName, "delete_time")
 
 	_user.fillFieldMap()
@@ -40,16 +43,19 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	return _user
 }
 
+// user 用户表
 type user struct {
 	userDo
 
 	ALL        field.Asterisk
-	ID         field.Int32
-	UserName   field.String // 用户名
-	Mobile     field.String // 手机号
-	Password   field.String // 密码
-	CreateTime field.Uint   // 创建时间
-	UpdateTime field.Uint   // 更新时间
+	ID         field.Int64
+	Nickname   field.String // 昵称
+	Username   field.String // 用户名(登录账号)
+	Avatar     field.String // 头像
+	Password   field.String // 密码 md5
+	CreateTime field.Int64  // 创建|注册时间
+	LoginTime  field.Int32  // 登录时间
+	Status     field.Int32  // 状态
 	DeleteTime field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -67,12 +73,14 @@ func (u user) As(alias string) *user {
 
 func (u *user) updateTableName(table string) *user {
 	u.ALL = field.NewAsterisk(table)
-	u.ID = field.NewInt32(table, "id")
-	u.UserName = field.NewString(table, "user_name")
-	u.Mobile = field.NewString(table, "mobile")
+	u.ID = field.NewInt64(table, "id")
+	u.Nickname = field.NewString(table, "nickname")
+	u.Username = field.NewString(table, "username")
+	u.Avatar = field.NewString(table, "avatar")
 	u.Password = field.NewString(table, "password")
-	u.CreateTime = field.NewUint(table, "create_time")
-	u.UpdateTime = field.NewUint(table, "update_time")
+	u.CreateTime = field.NewInt64(table, "create_time")
+	u.LoginTime = field.NewInt32(table, "login_time")
+	u.Status = field.NewInt32(table, "status")
 	u.DeleteTime = field.NewField(table, "delete_time")
 
 	u.fillFieldMap()
@@ -90,13 +98,15 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 7)
+	u.fieldMap = make(map[string]field.Expr, 9)
 	u.fieldMap["id"] = u.ID
-	u.fieldMap["user_name"] = u.UserName
-	u.fieldMap["mobile"] = u.Mobile
+	u.fieldMap["nickname"] = u.Nickname
+	u.fieldMap["username"] = u.Username
+	u.fieldMap["avatar"] = u.Avatar
 	u.fieldMap["password"] = u.Password
 	u.fieldMap["create_time"] = u.CreateTime
-	u.fieldMap["update_time"] = u.UpdateTime
+	u.fieldMap["login_time"] = u.LoginTime
+	u.fieldMap["status"] = u.Status
 	u.fieldMap["delete_time"] = u.DeleteTime
 }
 
@@ -167,6 +177,8 @@ type IUserDo interface {
 	FirstOrCreate() (*model.User, error)
 	FindByPage(offset int, limit int) (result []*model.User, count int64, err error)
 	ScanByPage(result interface{}, offset int, limit int) (count int64, err error)
+	Rows() (*sql.Rows, error)
+	Row() *sql.Row
 	Scan(result interface{}) (err error)
 	Returning(value interface{}, columns ...string) IUserDo
 	UnderlyingDB() *gorm.DB

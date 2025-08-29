@@ -2,15 +2,15 @@ package initialize
 
 import (
 	"app/internal/config"
-	"app/internal/global"
 	"app/internal/orm/query"
 	"errors"
 	"fmt"
+	"log/slog"
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log/slog"
-	"time"
 )
 
 // 使用自定义logger接管gorm日志
@@ -24,9 +24,9 @@ func (w dbLogWriter) Printf(format string, args ...any) {
 func InitDatabase() error {
 
 	// 连接数据库
-	dbConf, err := config.GetDBConfig("mysql")
+	dbConf, err := config.GetDBConfig("main")
 	if err != nil {
-		return errors.New("database.mysql config is nil")
+		return errors.New("database.main config is nil")
 	}
 
 	// 连接数据库
@@ -41,16 +41,20 @@ func InitDatabase() error {
 			},
 		),
 	}
-	mysqlDb, err := gorm.Open(mysql.Open(dbConf.GenerateDsn()), gormConfig)
-	if err != nil {
-		return err
+
+	var mainDb *gorm.DB
+
+	if dbConf.Type == "mysql" {
+		mainDb, err = gorm.Open(mysql.Open(dbConf.GenerateDsn()), gormConfig)
+		if err != nil {
+			return err
+		}
+	} else {
+		return errors.New("database type is not supported")
 	}
 
-	// 设置全局数据库连接
-	global.SetDb("default", mysqlDb)
-
 	// 设置默认查询器
-	query.SetDefault(mysqlDb)
+	query.SetDefault(mainDb)
 
 	return nil
 }

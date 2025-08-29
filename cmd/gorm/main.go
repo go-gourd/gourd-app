@@ -4,23 +4,23 @@ import (
 	"app/cmd/gorm/methods"
 	"app/cmd/gorm/tags"
 	"app/internal/config"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
-	"gorm.io/gen/field"
 	"gorm.io/gorm"
 )
 
 func main() {
 
 	// 初始化数据库
-	dbConfig, err := config.GetDBConfig("mysql")
+	dbConfig, err := config.GetDBConfig("main")
 	if err != nil {
 		panic(err)
 	}
 
-	mysqlDb, err := gorm.Open(mysql.Open(dbConfig.GenerateDsn()))
+	mainDB, err := gorm.Open(mysql.Open(dbConfig.GenerateDsn()))
 	if err != nil {
-		panic("mysql connect failed: " + err.Error())
+		panic("database connect failed: " + err.Error())
 	}
 
 	// 公共属性
@@ -28,6 +28,8 @@ func main() {
 		// 自动时间戳字段属性
 		gen.FieldGORMTag("create_time", tags.CreateField),
 		gen.FieldGORMTag("update_time", tags.UpdateField),
+		gen.FieldType("create_time", "int64"),
+		gen.FieldType("update_time", "int64"),
 
 		// 软删除字段属性
 		gen.FieldType("delete_time", "soft_delete.DeletedAt"),
@@ -42,15 +44,12 @@ func main() {
 		Mode:         gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
 	})
 
-	g.UseDB(mysqlDb)
+	g.UseDB(mainDB)
 
 	// 生成所有表
 	//g.ApplyBasic(g.GenerateAllTable(comOpts...)...)
 
 	var allTables []any
-
-	// 生成指定表
-	g.ApplyBasic(allTables...)
 
 	// User
 	appModel := g.GenerateModel("user", comOpts...)
@@ -59,5 +58,6 @@ func main() {
 	// 生成指定表
 	g.ApplyBasic(allTables...)
 
+	// 执行生成
 	g.Execute()
 }
