@@ -20,7 +20,7 @@ func (ctl *User) Info(w http.ResponseWriter, r *http.Request) {
 			qu.ID.Eq(1),
 			qu.CreateTime.Eq(0),
 		).
-		Select(qu.ID, qu.UserName).
+		Select(qu.ID, qu.Username).
 		First()
 
 	// 响应结果
@@ -33,7 +33,7 @@ func (ctl *User) Add(w http.ResponseWriter, r *http.Request) {
 	qTx := q.Begin()
 
 	userData := model.User{
-		UserName: "go_create",
+		Username: "go_create",
 	}
 
 	err := qTx.User.Create(&userData)
