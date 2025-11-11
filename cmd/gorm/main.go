@@ -26,13 +26,11 @@ func main() {
 	// 公共属性
 	comOpts := []gen.ModelOpt{
 		// 自动时间戳字段属性
-		gen.FieldGORMTag("create_time", tags.CreateField),
-		gen.FieldGORMTag("update_time", tags.UpdateField),
-		gen.FieldType("create_time", "int64"),
-		gen.FieldType("update_time", "int64"),
+		gen.FieldGORMTag("created_at", tags.CreateField),
+		gen.FieldGORMTag("updated_at", tags.UpdateField),
 
 		// 软删除字段属性
-		gen.FieldType("delete_time", "soft_delete.DeletedAt"),
+		gen.FieldType("deleted_at", "gorm.DeletedAt"),
 
 		// Json序列化
 		gen.WithMethod(methods.JsonMethod{}),

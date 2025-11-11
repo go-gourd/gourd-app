@@ -2,10 +2,10 @@ package config
 
 // HttpConfig Http服务器配置
 type HttpConfig struct {
-	Enable bool   `toml:"enable" json:"enable"` // 是否启用Http服务器
-	Host   string `toml:"host" json:"host"`     // 监听域名、IP
-	Port   uint16 `toml:"port" json:"port"`     // 监听端口
-	Static string `toml:"static" json:"static"` // 静态资源目录
+	Enable bool   `toml:"enable" json:"enable" comment:"是否启用Http服务器"`
+	Host   string `toml:"host" json:"host"  comment:"监听域名、IP"`
+	Port   uint16 `toml:"port" json:"port" comment:"监听端口"`
+	Static string `toml:"static" json:"static" comment:"静态资源目录"`
 }
 
 var httpConf *HttpConfig

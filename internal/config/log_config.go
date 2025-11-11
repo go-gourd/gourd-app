@@ -2,11 +2,11 @@ package config
 
 // LogConfig 日志配置
 type LogConfig struct {
-	Level    string `toml:"level" json:"level"`       // 日志记录级别 debug、info、warn、error
-	LogFile  string `toml:"log_file" json:"log_file"` // 日志文件
-	Console  bool   `toml:"console" json:"console"`   // 是否开启控制台输出
-	Encoding string `toml:"encoding" json:"encoding"` // 输出格式 default、json、text
-	MaxSize  int    `toml:"max_size" json:"max_size"` // 单个日志文件最大大小，单位：M
+	Level    string `toml:"level" json:"level"  comment:"日志记录级别 debug、info、warn、error"`
+	LogFile  string `toml:"log_file" json:"log_file" comment:"日志文件"`
+	Console  bool   `toml:"console" json:"console" comment:"是否开启控制台输出"`
+	Encoding string `toml:"encoding" json:"encoding" comment:"输出格式 default、json、text"`
+	MaxSize  int    `toml:"max_size" json:"max_size" comment:"单个日志文件最大大小，单位：M"`
 }
 
 var logConf *LogConfig
