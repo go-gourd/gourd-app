@@ -29,7 +29,7 @@ func (conf DbConfig) GenerateDsn() string {
 		if conf.Param != "" {
 			dsnParam = "&" + conf.Param
 		}
-		dsnF := "%s:%s@(%s:%d)/%s%s?parseTime=true"
+		dsnF := "%s:%s@(%s:%d)/%s%s?parseTime=true&loc=Local"
 		dsn = fmt.Sprintf(dsnF, conf.User, conf.Pass, conf.Host, conf.Port, conf.Database, dsnParam)
 	} else if conf.Type == "sqlserver" {
 		if conf.Param != "" {

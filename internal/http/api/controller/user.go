@@ -12,7 +12,7 @@ type User struct {
 }
 
 // Info 获取用户信息
-func (ctl *User) Info(w http.ResponseWriter, r *http.Request) {
+func (ctl *User) Info(w http.ResponseWriter, _ *http.Request) {
 	qu := query.User
 
 	userData, _ := query.User.
@@ -28,7 +28,7 @@ func (ctl *User) Info(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add 创建用户
-func (ctl *User) Add(w http.ResponseWriter, r *http.Request) {
+func (ctl *User) Add(w http.ResponseWriter, _ *http.Request) {
 	q := query.Q
 	qTx := q.Begin()
 

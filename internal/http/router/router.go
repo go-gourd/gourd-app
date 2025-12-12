@@ -3,8 +3,8 @@ package router
 import (
 	"app/internal/config"
 	apiRouter "app/internal/http/api/router"
+	"app/internal/http/common/middleware"
 	"net/http"
-	"os"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -25,21 +25,14 @@ func GetRouter() *chi.Mux {
 func InitRouter() {
 	r := GetRouter()
 
+	// 静态资源处理中间件
+	conf, err := config.GetHttpConfig()
+	if err == nil && conf.Static != "" {
+		r.Use(middleware.StaticOrNext(conf.Static))
+	}
+
 	// 404响应
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		// 若路由未定义，检测是否为静态资源
-		conf, err := config.GetHttpConfig()
-		// 若配置中有静态资源路径，尝试从该路径下查找资源
-		if err == nil && conf.Static != "" {
-			filepath := conf.Static + r.URL.Path
-			//判断文件是否存在
-			if info, err := os.Stat(filepath); err == nil && !info.IsDir() {
-				http.ServeFile(w, r, filepath)
-				return
-			}
-		}
-
-		// 404响应内容
 		w.WriteHeader(404)
 		_, _ = w.Write([]byte("404 not found."))
 	})

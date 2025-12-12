@@ -1,11 +1,12 @@
 package event
 
 import (
-	"app/internal/initialize"
 	"context"
 	"log/slog"
 
 	"github.com/go-gourd/gourd/event"
+
+	"app/internal/initialize"
 )
 
 // AppEvent 事件注册
@@ -24,14 +25,14 @@ func AppEvent(_ context.Context) {
 		//if err != nil {
 		//    panic(err)
 		//}
-
-		// 初始化命令行
-		initialize.InitCmd()
 	})
 
 	// Init事件(应用) -初始化完成执行
 	event.Listen("app.init", func(context.Context) {
 		slog.Debug("init event.")
+
+		// 初始化命令行并解析参数
+		initialize.InitCmd()
 	})
 
 	// Start事件(应用) -启动后执行
@@ -46,11 +47,9 @@ func AppEvent(_ context.Context) {
 
 	})
 
-	// Stop事件(应用) -终止时执行
+	// Stop事件(应用) -停止时执行
 	event.Listen("app.stop", func(context.Context) {
 		slog.Debug("stop event.")
 	})
-
-	// 注册更多自定义事件监听
 
 }
